@@ -138,9 +138,12 @@ export default defineComponent({
 
                     <div>
                       <label class="text-gray-700" for="username">CDC</label>
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text" />
+                      <select id="countries"
+                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 selection:bg-gray-50 border  text-gray-900 text-sm  block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Select CDC</option>
+                        <option value="US">test</option>
+                        <option value="CA">test</option>
+                      </select>
                     </div>
                   </div>
 
@@ -149,7 +152,7 @@ export default defineComponent({
                   </h2>
 
                   <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                   
+
                     <div>
                       <label class="text-gray-700" for="username">Father's Name</label>
                       <input

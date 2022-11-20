@@ -7,6 +7,7 @@ export default defineComponent({
   },
   setup() {
     const active = ref(false);
+    const startAssess = ref(false);
 
     function toggle() {
       active.value = !active.value
@@ -14,6 +15,7 @@ export default defineComponent({
 
     return {
       active,
+      startAssess,
       toggle,
     }
   }
@@ -26,7 +28,8 @@ export default defineComponent({
   <div class="overflow-auto">
     <!-- Main modal -->
     <div id="code-modal" tabindex="-1" aria-hidden="true" v-if="active"
-      class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full flex justify-center items-center" style="">
+      class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full flex justify-center items-center"
+      style="">
       <div @click.prevent="toggle" class="bg-gray-900 absolute opacity-70 right-0 top-0 left-0 bottom-0">
       </div>
       <div class="relative w-full max-w-md h-full md:h-auto">
@@ -54,7 +57,8 @@ export default defineComponent({
                   placeholder="Code" required>
               </div>
               <button type="submit"
-                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit code</button>
+                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
+                code</button>
               <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create
                   account</a>
@@ -64,7 +68,6 @@ export default defineComponent({
         </div>
       </div>
     </div>
-
     <div class="container mx-auto px-4 sm:px-8 w-full max-w-screen-xl">
       <div class="py-8">
         <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
@@ -153,93 +156,17 @@ export default defineComponent({
                     </span>
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                        <a href="#" class="block relative">
-                          <img alt="profil" src="https://tailwindui.com/img/avatar-3.jpg"
-                            class="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                      </div>
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jean marc
-                        </p>
-                      </div>
+                    <div class="flex gap-5 items-center">
+                      <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                        Edit
+                      </a>
+                      <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->
                     </div>
                   </td>
-                  <!-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Admin
-                        </p>
-                      </td> -->
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      8
-                    </p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                      </span>
-                      <span class="relative">
-                        1
-                      </span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
                 </tr>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0">
-                        <a href="#" class="block relative">
-                          <img alt="profil" src="https://tailwindui.com/img/avatar-3.jpg"
-                            class="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                      </div>
-                      <div class="ml-3">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jean marc
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <!-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Admin
-                        </p>
-                      </td> -->
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      8
-                    </p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                      </span>
-                      <span class="relative">
-                        1
-                      </span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
+                
+                
+                
 
 
 

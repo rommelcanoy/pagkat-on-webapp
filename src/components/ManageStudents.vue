@@ -45,7 +45,7 @@ export default defineComponent({
           </button>
           <div class="py-6 px-6 lg:px-8">
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Enter enrollment code</h3>
-            <form class="space-y-6" action="#">
+            <form class="space-y-6" action="/dashboard/add-student">
               <div>
                 <!-- <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enrollment 
                   code</label> -->

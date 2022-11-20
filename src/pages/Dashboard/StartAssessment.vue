@@ -26,15 +26,16 @@ export default defineComponent({
           <li class="inline-flex items-center">
             <router-link to="/dashboard/assessments"
               class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-              <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                  clip-rule="evenodd"></path>
               </svg>
-              Assessments
+              Start Assessment
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <div class="flex items-center">
               <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +48,7 @@ export default defineComponent({
                 Assessment
                 for Learning Resource no. 5</router-link>
             </div>
-          </li>
+          </li> -->
           <li aria-current="page">
             <div class="flex items-center">
               <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -56,7 +57,8 @@ export default defineComponent({
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                   clip-rule="evenodd"></path>
               </svg>
-              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Start Assessment</span>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Assessment
+                for Learning Resource no. 5</span>
             </div>
           </li>
         </ol>
@@ -121,32 +123,32 @@ export default defineComponent({
                   <tr>
                     <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
                     <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="PH+" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="SE" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="CV" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="CD" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="LD" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="CA" /></td>
+                        value="PH+" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="SE" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="CV" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="CD" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="LD" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="CA" /></td>
                   </tr>
                   <tr>
                     <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
                     <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="PH+" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="SE" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="CV" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="CD" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="LD" /></td>
-                  <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                      value="CA" /></td>
+                        value="PH+" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="SE" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="CV" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="CD" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="LD" /></td>
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                        value="CA" /></td>
                   </tr>
                 </div>
                 <div class="materials">

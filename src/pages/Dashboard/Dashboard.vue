@@ -61,7 +61,7 @@ export default defineComponent({
 
       <div class="overflow-auto mt-[64px]">
         <section class="p-6 my-6 dark:bg-gray-800 dark:text-gray-100 max-w-screen-xl">
-          <div class="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-1 xl:grid-cols-3">
+          <div class="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-1 xl:grid-cols-2">
 
             <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-white border">
               <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
@@ -84,7 +84,7 @@ export default defineComponent({
                 <p class="capitalize">Students</p>
               </div>
             </div>
-            <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-white border">
+            <!-- <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-white border">
               <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
                   class="h-9 w-9 dark:text-gray-800">
@@ -104,7 +104,7 @@ export default defineComponent({
                 <p class="text-3xl font-semibold leading-none">12</p>
                 <p class="capitalize">Teachers</p>
               </div>
-            </div>
+            </div> -->
             <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-white border">
               <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
@@ -116,7 +116,7 @@ export default defineComponent({
               </div>
               <div class="flex flex-col justify-center align-middle">
                 <p class="text-3xl font-semibold leading-none">4</p>
-                <p class="capitalize">Activities</p>
+                <p class="capitalize">Assessments</p>
               </div>
             </div>
           </div>

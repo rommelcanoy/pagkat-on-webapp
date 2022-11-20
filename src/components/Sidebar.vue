@@ -105,7 +105,7 @@ import { defineComponent } from 'vue';
             <span class="flex-1 ml-3 whitespace-nowrap">Students</span>
           </router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link to="/dashboard"
             class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
             <svg
@@ -118,8 +118,8 @@ import { defineComponent } from 'vue';
             </svg>
             <span class="flex-1 ml-3 whitespace-nowrap">Activities</span>
           </router-link>
-        </li>
-        <li>
+        </li> -->
+        <!-- <li>
           <router-link to="/dashboard"
             class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
@@ -133,9 +133,9 @@ import { defineComponent } from 'vue';
             </svg>
             <span class="flex-1 ml-3 whitespace-nowrap">Objectives</span>
           </router-link>
-        </li>
+        </li> -->
         <li>
-          <router-link to="/dashboard"
+          <router-link to="/dashboard/assessments"
             class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
 
             <svg

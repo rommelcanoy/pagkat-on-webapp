@@ -1,7 +1,6 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, reactive } from "vue";
 import Sidebar from "../../components/Sidebar.vue";
-import { ref } from 'vue'
 import AssessmentForm from "../../components/AssessmentForm.vue";
 
 export default defineComponent({
@@ -9,6 +8,81 @@ export default defineComponent({
   components: {
     Sidebar,
     AssessmentForm
+  },
+  setup() {
+    const activities = reactive(
+      [
+        {
+          title: 'activity 1',
+          instructions: 'instruction test',
+          materials: 'materials test1, test 11111',
+          procedures: 'procdure 1, procedure 11111',
+          objectives: [
+            {
+              name: ' test objective 1',
+            }
+          ]
+        },
+        {
+          title: 'activity 2',
+          instructions: 'instruction test 22222',
+          materials: 'materials test1, test 2222',
+          procedures: 'procdure 1, procedure 2222',
+          objectives: [
+            {
+              name: ' test objective in activity 2',
+            },
+            {
+              name: ' test 2 objective in activity 2',
+            }
+          ]
+        }
+      ]
+    );
+
+    const addActivity = () => {
+      const data = {
+        title: 'activity new',
+        instructions: '',
+        materials: '',
+        procedures: '',
+        objectives: [
+          {
+            id: 1,
+            name: '',
+          },
+          {
+            id: 1,
+            name: '',
+          }
+        ]
+      }
+      activities.push(data);
+    }
+
+    const deleteActivity = (index: number) => {
+      console.log('index', index);
+      activities.splice(index, 1);
+    }
+
+    const addObjective = (activityIndex: number) => {
+      const data = {
+        name: 'new objective',
+      }
+      activities[activityIndex].objectives.push(data);
+    }
+
+    const removeObjective = (activityIndex: number, objectiveIndex: number) => {
+      activities[activityIndex].objectives.splice(objectiveIndex, 1);
+    }
+
+    return {
+      activities,
+      addActivity,
+      deleteActivity,
+      addObjective,
+      removeObjective,
+    }
   }
 })
 
@@ -76,9 +150,28 @@ export default defineComponent({
               <h2 class="text-lg font-semibold text-gray-700 capitalize text-center">
                 Assessment for Learning Resource no. 5
               </h2>
-              
-              <div v-for="n in 2" :key="n">
-                <assessment-form />
+
+              <div v-if="activities.length <= 0" class="">
+                <h3 class="mt-3 text-lg">
+                  No Activity, please add
+                </h3>
+              </div>
+
+              <div v-else v-for="(activity, index) in activities" :key="activity.title">
+                <assessment-form :activity="activity" :index="index" @deleteActivity="deleteActivity"
+                  @addObjective="addObjective" @removeObjective="removeObjective" />
+              </div>
+              <div class="flex justify-end mt-4">
+                <button @click="addActivity"
+                  class="flex items-center px-3 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                  <span>Add Activity</span>
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+
+                </button>
               </div>
             </div>
           </div>

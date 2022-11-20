@@ -122,32 +122,32 @@ export default defineComponent({
                   </tr>
                   <tr>
                     <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
                         value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
                         value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
                         value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
                         value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
                         value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
                         value="CA" /></td>
                   </tr>
                   <tr>
                     <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
                         value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
                         value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
                         value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
                         value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
                         value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
                         value="CA" /></td>
                   </tr>
                 </div>
@@ -190,17 +190,17 @@ export default defineComponent({
                   </tr>
                   <tr>
                     <td class="border border-gray-300  px-3 py-2">2. Practice procedure 2</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                         value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                         value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                         value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                         value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                         value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                         value="CA" /></td>
                   </tr>
                 </div>

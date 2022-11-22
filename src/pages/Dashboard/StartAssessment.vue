@@ -122,33 +122,21 @@ export default defineComponent({
                   </tr>
                   <tr>
                     <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
-                        value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
-                        value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
-                        value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
-                        value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
-                        value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective1" type="radio"
-                        value="CA" /></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
                   </tr>
                   <tr>
                     <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
-                        value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
-                        value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
-                        value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
-                        value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
-                        value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="objective2" type="radio"
-                        value="CA" /></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
                   </tr>
                 </div>
                 <div class="materials">
@@ -211,61 +199,6 @@ export default defineComponent({
                   <span>Submit Assessment</span>
                 </button>
               </div>
-              <!-- <form class="">
-                <div class="mt-4 border border-solid border-gray-300 p-5 bg-gray-50 rounded">
-                  <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-medium">Title</h3>
-                    <div class="flex gap-2 items-center">
-                      <button type="button"
-                        class="px-2 py-2 text-gray-500 bg-g-500 rounded-md bg-gray-300 hover:text-white hover:bg-blue-700 focus:outline-none ">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </button>
-                      <button type="button"
-                        class="px-2 py-2 text-gray-500 bg-g-500 rounded-md bg-gray-300 hover:text-white hover:bg-red-700 focus:outline-none ">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1">
-                    <div>
-                      <label class="text-gray-700" for="username">Activity Title</label>
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text" />
-                    </div>
-
-                    <div>
-                      <label class="text-gray-700" for="username">Instruction</label>
-                      <textarea
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text" placeholder="Write instruction"></textarea>
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="username">Materials</label>
-                      <textarea
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text" placeholder="Write materials"></textarea>
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="username">Procedure</label>
-                      <textarea
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text" placeholder="Write procedure"></textarea>
-                    </div>
-                  </div>
-                </div>
-
-
-              </form> -->
             </div>
           </div>
         </div>

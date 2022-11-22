@@ -1,9 +1,11 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import StartAssessmentModal from "./StartAssessmentModal.vue";
 
 export default defineComponent({
   name: "ManageStudents",
   components: {
+    StartAssessmentModal
   },
   setup() {
     const active = ref(false);
@@ -160,7 +162,7 @@ export default defineComponent({
                       <a href="#" class="text-indigo-600 hover:text-indigo-900">
                         Edit
                       </a>
-                      <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->
+                     <start-assessment-modal />
                     </div>
                   </td>
                 </tr>

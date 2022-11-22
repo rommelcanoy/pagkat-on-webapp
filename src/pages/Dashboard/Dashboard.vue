@@ -17,7 +17,7 @@ export default defineComponent({
 <template>
   <div class="h-screen flex bg-gray-100 text-gray-900 flex-1">
     <Sidebar />
-    <div class="ml-64 flex-1 flex flex-col ">
+    <div class="ml-64 flex-1 flex flex-col">
       <nav class="flex p-5 border-b w-full fixed bg-white" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
           <li class="inline-flex items-center">
@@ -60,8 +60,8 @@ export default defineComponent({
       </nav>
 
       <div class="overflow-auto mt-[64px]">
-        <section class="p-6 my-6 dark:bg-gray-800 dark:text-gray-100 max-w-screen-xl">
-          <div class="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-1 xl:grid-cols-2">
+        <section class="p-6 my-6 dark:bg-gray-800 dark:text-gray-100 max-w-screen-xl mx-auto">
+          <div class="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-1 xl:grid-cols-2 ">
 
             <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-white border">
               <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">

@@ -30,6 +30,10 @@
   @apply border-red-500 border-2
 }
 
+.tableData {
+  @apply border border-gray-300 text-center
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

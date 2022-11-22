@@ -7,6 +7,7 @@ import AddStudent from '../pages/Dashboard/AddStudent.vue'
 import Index from '../pages/Dashboard/Index.vue'
 import Assessments from '../pages/Dashboard/Assessments.vue'
 import ManageAssessment from '../pages/Dashboard/ManageAssessmentPage.vue'
+import StartAssessment from '../pages/Dashboard/StartAssessment.vue'
 // import Register from '@/pages/Register/Register.vue'
 
 const routes = [
@@ -39,6 +40,10 @@ const routes = [
 			{
 				path: 'manage-assessment',
 				component: ManageAssessment,
+			},
+			{
+				path: 'start-assessment',
+				component: StartAssessment,
 			},
     ],
 	},

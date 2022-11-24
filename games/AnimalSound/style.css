@@ -1,0 +1,328 @@
+html {
+    font-family: "Open Sans", "Times New Roman", "Arial";
+    font-size: 14px;
+}
+
+body {
+    background: darkseagreen;
+    color: white;
+    margin: 0;
+}
+
+button {
+    padding: 20px;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+@media screen and (max-width: 480px) {
+    button {
+        min-width: 50px;
+    }
+}
+
+button sub {
+    display: block;
+    font-size: 10px;
+    padding-top: 5px;
+    font-style: italic;
+}
+
+.hide {
+    display: none !important;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.no-click {
+    pointer-events: none;
+}
+
+.grid-container {
+    display: grid;
+}
+
+.body-wrapper.grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Bad Script', cursive;
+}
+
+.body-wrapper header {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.body-wrapper main {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.control-wrapper.grid-container {
+    display: block;
+}
+
+.control-hide {
+    display: none !important;
+}
+
+.control-show {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+}
+
+.button-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+    padding-bottom: 20px;
+}
+
+@media screen and (max-width: 480px) {
+    .button-wrapper {
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+}
+
+.playmode-wrapper {
+    padding-bottom: 20px;
+}
+
+.playmode-choice {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.playmode-choice button:nth-child(odd) {
+    margin-bottom: 15px;
+}
+
+#feedback {
+    font-size: 1.5em;
+    padding-bottom: 10px;
+}
+
+#start {
+    background: #4eae69;
+}
+
+#reset {
+    background: #FF851B;
+}
+
+#playercounter {
+    background: lightskyblue;
+}
+
+#selection h2 {
+    padding-bottom: 25px;
+}
+
+.selection-wrapper.grid-container {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.selection-wrapper.choice-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 480px) {
+    .selection-wrapper.choice-grid {
+        grid-gap: 0.5em;
+    }
+}
+
+.selection-wrapper.game-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#selection .preselection img:hover {
+    background: #4eae69;
+}
+
+.animal img {
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .animal img {
+        width: 100px;
+    }
+}
+
+.active {
+    background: #4eae69 !important;
+}
+
+.inactive {
+    background: grey !important;
+    cursor: not-allowed;
+}
+
+.highlight {
+    background: #ffeb3b !important;
+    -webkit-box-shadow: 0 0 30px white;
+    box-shadow: 0 0 30px white;
+}
+
+.gold {
+    background: gold;
+}
+
+.pink {
+    background: pink;
+}
+
+.mediumpurple {
+    background: mediumpurple;
+}
+
+.brown {
+    background: brown;
+}
+
+.cornflowerblue {
+    background: cornflowerblue;
+}
+
+.orangered {
+    background: orangered;
+}
+
+.darkgrey {
+    background: darkgrey;
+}
+
+.orange {
+    background: orange;
+}
+
+.white {
+    background: white;
+}
+
+.yellowgreen {
+    background: yellowgreen;
+}
+
+.saddlebrown {
+    background: saddlebrown;
+}
+
+.darkolivegreen {
+    background: darkolivegreen;
+}
+
+.darkgoldenrod {
+    background: darkgoldenrod;
+}
+
+.nobg {
+    background: none;
+}
+
+.error {
+    background: red;
+}
+
+.screen {
+    position: absolute;
+    height: 300px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    -webkit-box-pack: space-evenly;
+    justify-content: space-evenly;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: rgba(0,0,0,0.5);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: -webkit-transform 0.4s;
+    transition: -webkit-transform 0.4s;
+    transition: transform 0.4s;
+    transition: transform 0.4s, -webkit-transform 0.4s;
+}
+
+@media screen and (max-width: 480px) {
+    .screen {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+}
+
+.gameover, .win {
+    font-size: 30px;
+    color: white;
+}
+
+.screen button {
+    height: 80px;
+    width: 200px;
+}
+
+.gameover button.playagain, .win button.playagain {
+    background: #FF851B;
+}
+
+.confirm-choice button.rechoose {
+    background: #FF851B;
+}
+
+.confirm-choice button.play.normal {
+    background: #4eae69;
+}
+
+.confirm-choice button.play.hard {
+    background: purple;
+}
+
+.confirm-choice-show, .gameover-show, .win-show {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.confirm-choice-hide, .game-over-hide, .win-hide {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}

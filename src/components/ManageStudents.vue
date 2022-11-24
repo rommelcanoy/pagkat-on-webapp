@@ -159,9 +159,9 @@ export default defineComponent({
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div class="flex gap-5 items-center">
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                      <router-link to="/dashboard/edit-student?id=123" class="text-indigo-600 hover:text-indigo-900">
                         Edit
-                      </a>
+                      </router-link>
                      <start-assessment-modal />
                     </div>
                   </td>

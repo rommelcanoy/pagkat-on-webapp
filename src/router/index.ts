@@ -4,6 +4,7 @@ import Register from '../pages/Register/Register.vue'
 import Dashboard from '../pages/Dashboard/Dashboard.vue'
 import Students from '../pages/Dashboard/Students.vue'
 import AddStudent from '../pages/Dashboard/AddStudent.vue'
+import EditStudent from '../pages/Dashboard/EditStudent.vue'
 import Index from '../pages/Dashboard/Index.vue'
 import Assessments from '../pages/Dashboard/Assessments.vue'
 import ManageAssessment from '../pages/Dashboard/ManageAssessmentPage.vue'
@@ -59,6 +60,14 @@ const routes = [
       {
         path: 'students',
         component: Students,
+      },
+      {
+        path: 'add-student',
+        component: AddStudent,
+      },
+      {
+        path: 'edit-student',
+        component: EditStudent,
       },
       {
         path: 'add-student',

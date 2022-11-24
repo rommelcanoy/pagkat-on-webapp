@@ -11,6 +11,13 @@ import ManageAssessment from '../pages/Dashboard/ManageAssessmentPage.vue'
 import StartAssessment from '../pages/Dashboard/StartAssessment.vue'
 import LearningMaterials from '../pages/Dashboard/LearningMaterials.vue'
 import InteractiveMaterials from '../pages/Dashboard/InteractiveMaterials.vue'
+import AnimalSound from '../pages/Dashboard/Games/AnimalSound.vue'
+import MazeGame from '../pages/Dashboard/Games/MazeGame.vue'
+import TicTacToe from '../pages/Dashboard/Games/TicTacToe.vue'
+import Alphabet from '../pages/Dashboard/Materials/Alphabet.vue'
+import Colors from '../pages/Dashboard/Materials/Colors.vue'
+import Numbers from '../pages/Dashboard/Materials/Numbers.vue'
+import Shapes from '../pages/Dashboard/Materials/Shapes.vue'
 import StudentLogin from '../pages/Student/Login.vue'
 import StudentDashboard from '../pages/Student/Dashboard.vue'
 import StudentDetails from '../pages/Student/Details.vue'
@@ -92,6 +99,34 @@ const routes = [
 			{
 				path: 'interactive-materials',
 				component: InteractiveMaterials,
+			},
+			{
+				path: 'games/animal-sound',
+				component: AnimalSound,
+			},
+			{
+				path: 'games/maze-game',
+				component: MazeGame,
+			},
+			{
+				path: 'games/tictactoe',
+				component: TicTacToe,
+			},
+			{
+				path: 'learning-materials/alphabet',
+				component: Alphabet,
+			},
+			{
+				path: 'learning-materials/colors',
+				component: Colors,
+			},
+			{
+				path: 'learning-materials/numbers',
+				component: Numbers,
+			},
+			{
+				path: 'learning-materials/shapes',
+				component: Shapes,
 			},
     ],
 	},

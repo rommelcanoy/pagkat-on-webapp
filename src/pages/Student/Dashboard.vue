@@ -141,9 +141,14 @@ export default defineComponent({
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div class="flex gap-5 items-center">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                        <a href="#" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
                           Edit
                         </a>
+                        <router-link to="/student/view-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
+                          View Assessment
+                        </router-link>
+                        
+                        
                         <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->
                       </div>
                     </td>

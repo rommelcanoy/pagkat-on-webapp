@@ -9,6 +9,7 @@ import Index from '../pages/Dashboard/Index.vue'
 import Assessments from '../pages/Dashboard/Assessments.vue'
 import ManageAssessment from '../pages/Dashboard/ManageAssessmentPage.vue'
 import StartAssessment from '../pages/Dashboard/StartAssessment.vue'
+import ViewAssessmentPage from '../pages/Dashboard/ViewAssessmentPage.vue'
 import LearningMaterials from '../pages/Dashboard/LearningMaterials.vue'
 import InteractiveMaterials from '../pages/Dashboard/InteractiveMaterials.vue'
 import AnimalSound from '../pages/Dashboard/Games/AnimalSound.vue'
@@ -21,6 +22,7 @@ import Shapes from '../pages/Dashboard/Materials/Shapes.vue'
 import StudentLogin from '../pages/Student/Login.vue'
 import StudentDashboard from '../pages/Student/Dashboard.vue'
 import StudentDetails from '../pages/Student/Details.vue'
+import StudentViewAssessment from '../pages/Student/ViewAssessment.vue'
 import LandingPage from '../pages/LandingPage.vue'
 // import Register from '@/pages/Register/Register.vue'
 
@@ -54,6 +56,11 @@ const routes = [
 		path: '/student/details',
 		name: 'StudentDetails',
 		component: StudentDetails,
+	},
+	{
+		path: '/student/view-assessment',
+		name: 'StudentViewAssessment',
+		component: StudentViewAssessment,
 	},
 	{
 		path: '/dashboard',
@@ -91,6 +98,10 @@ const routes = [
 			{
 				path: 'start-assessment',
 				component: StartAssessment,
+			},
+			{
+				path: 'view-assessment',
+				component: ViewAssessmentPage,
 			},
 			{
 				path: 'learning-materials',

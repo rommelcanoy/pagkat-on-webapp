@@ -91,26 +91,26 @@ export default defineComponent({
           <label class="text-gray-700" for="username">Activity Title</label>
           <input
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" v-model="activity.title" />
+            type="text" :disabled="activity.id != null" v-model="activity.title" />
         </div>
 
         <div>
           <label class="text-gray-700" for="username">Instruction</label>
           <textarea
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" v-model="activity.instructions" placeholder="Write instruction"></textarea>
+            type="text" :disabled="activity.id != null" v-model="activity.instructions" placeholder="Write instruction"></textarea>
         </div>
         <div>
           <label class="text-gray-700" for="username">Materials</label>
           <textarea
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" v-model="activity.materials" placeholder="Write materials"></textarea>
+            type="text" :disabled="activity.id != null" v-model="activity.materials" placeholder="Write materials"></textarea>
         </div>
         <div>
           <label class="text-gray-700" for="username">Procedure</label>
           <textarea
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" v-model="activity.procedure" placeholder="Write procedure"></textarea>
+            type="text" :disabled="activity.id != null" v-model="activity.procedure" placeholder="Write procedure"></textarea>
         </div>
         <div>
           <label class="text-gray-700" for="username">Objectives</label>
@@ -120,9 +120,9 @@ export default defineComponent({
             </h3>
           </div>
           <div v-else v-for="(objective, index) in activity.objectives" :key="index">
-            <objective-input :objective="objective" :index="index" @removeObjective="removeObjective" />
+            <objective-input :delete_able="activity.id == null" :objective="objective" :index="index" @removeObjective="removeObjective" />
           </div>
-          <div class="flex justify-end mt-4">
+          <div class="flex justify-end mt-4" v-if="activity.id == null">
             <button type="button" @click="addObjective"
               class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
               Add Objective

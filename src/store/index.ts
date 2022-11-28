@@ -68,6 +68,7 @@ export const userStore = defineStore('auth', () => {
 export const assessmentStore = defineStore('assessment_store', () =>{
 
         const assessments = ref([])
+        const current_activities = ref([])
         const router = useRouter()
         const addAssessment = (event: Event, form: HTMLFormElement) => {
             event.preventDefault()
@@ -95,7 +96,12 @@ export const assessmentStore = defineStore('assessment_store', () =>{
             })
         }
 
-        const saveAssessment = (data: Array<{title: string,instructions: string,materials: string,procedures: string,objectives: Array<{name: string}>}>, id: any) => {
+        const saveAssessment = (data: Array<{
+            id: null;
+            title: string,instructions: string,materials: string,procedures: string,objectives: Array<{name: string}>}>, id: any) => {
+            data = data.filter(function( obj ) {
+                return obj.id == null;
+            });
             return axios.post(import.meta.env.VITE_BACKEND_HOST+'/api/activity/add', {activities: data, assessment: id}).then(async response=>{
                 alert("Assessment Updated")
                 console.log(response)
@@ -106,7 +112,28 @@ export const assessmentStore = defineStore('assessment_store', () =>{
             })
         }
 
-        return {assessments, addAssessment, getAssessments, saveAssessment}
+
+        const getActivities = async  (id: any) =>{
+            return await axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/activity/list?assessment_id=${id}`).then(response=>{
+
+                return response.data
+            }).catch(error=>{
+                console.error(error)
+                return []
+            })
+        }
+
+        const deleteActivity = async (id: any) =>{
+            return await axios.delete(import.meta.env.VITE_BACKEND_HOST+`/api/activity/${id}/delete`).then(response=>{
+                return id
+            }).catch(error=>{
+                alert("Something went wrong")
+                console.error(error)
+                return error
+            })
+        }
+
+        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity}
     }
 )
 export const studentStore = defineStore('user_store', ()=>{

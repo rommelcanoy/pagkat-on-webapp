@@ -61,6 +61,12 @@ export default defineComponent({
       removeObjective,
       assessment_store
     }
+  },
+  async mounted(){
+    const data = await this.assessment_store.getActivities(this.$route.query.assessment_id)
+    // @ts-ignore
+    Array.prototype.splice.apply(this.activities, [0, data.length].concat(data))
+    console.log(data)
   }
 })
 

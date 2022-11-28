@@ -50,7 +50,7 @@ export default defineComponent({
   <form class="">
     <div class="mt-4 border border-solid border-gray-300 p-5 bg-gray-50 rounded">
       <div class="flex justify-between items-center">
-        <h3 class="text-lg font-medium">{{ activity?.title }}</h3>
+        <h3 class="text-lg font-medium">{{ activity.title }}</h3>
         <div class="flex gap-2 items-center">
           <button type="button" @click="collapse = !collapse"
             class="px-2 py-2 text-gray-500 bg-g-500 rounded-md bg-gray-300 hover:text-white hover:bg-blue-700 focus:outline-none ">
@@ -91,35 +91,35 @@ export default defineComponent({
           <label class="text-gray-700" for="username">Activity Title</label>
           <input
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" :value="activity?.title" />
+            type="text" v-model="activity.title" />
         </div>
 
         <div>
           <label class="text-gray-700" for="username">Instruction</label>
           <textarea
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" :value="activity?.instructions" placeholder="Write instruction"></textarea>
+            type="text" v-model="activity.instructions" placeholder="Write instruction"></textarea>
         </div>
         <div>
           <label class="text-gray-700" for="username">Materials</label>
           <textarea
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" :value="activity?.materials" placeholder="Write materials"></textarea>
+            type="text" v-model="activity.materials" placeholder="Write materials"></textarea>
         </div>
         <div>
           <label class="text-gray-700" for="username">Procedure</label>
           <textarea
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            type="text" :value="activity?.procedures" placeholder="Write procedure"></textarea>
+            type="text" v-model="activity.procedure" placeholder="Write procedure"></textarea>
         </div>
         <div>
           <label class="text-gray-700" for="username">Objectives</label>
-          <div v-if="activity?.objectives.length <= 0" class="">
+          <div v-if="activity.objectives.length <= 0" class="">
             <h3 class="mt-3 text-md text-gray-600">
               No objectives, please add
             </h3>
           </div>
-          <div v-else v-for="(objective, index) in activity?.objectives" :key="objective.name">
+          <div v-else v-for="(objective, index) in activity.objectives" :key="index">
             <objective-input :objective="objective" :index="index" @removeObjective="removeObjective" />
           </div>
           <div class="flex justify-end mt-4">

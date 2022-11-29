@@ -148,7 +148,16 @@ export const assessmentStore = defineStore('assessment_store', () =>{
             })
         }
 
-        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity, deleteAssessment}
+        const retrieveAssessment = async (id: any) => {
+            return await axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/get`).then(response=>{
+                return response.data
+            }).catch(error=>{
+                console.error(error)
+                return []
+            })
+        }
+
+        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity, deleteAssessment, retrieveAssessment}
     }
 )
 export const studentStore = defineStore('user_store', ()=>{

@@ -2,16 +2,28 @@
 import { defineComponent, ref, reactive } from "vue";
 import Sidebar from "../../components/Sidebar.vue";
 import AssessmentForm from "../../components/AssessmentForm.vue";
+import {assessmentStore} from "../../store";
 
 export default defineComponent({
   name: "StartAssessment",
   components: {
     Sidebar,
   },
-  setup() {
-
+  data(){
     return {
+      assessment: []
     }
+  },
+  setup() {
+    const assessment_store = assessmentStore()
+    return {
+      assessment_store
+    }
+  },
+  async mounted(){
+    let result = await this.assessment_store.retrieveAssessment(this.$route.query.assessment_id)
+    // @ts-ignore
+    Array.prototype.splice.apply(this.assessment, [0, result.length].concat(result))
   }
 })
 
@@ -57,8 +69,7 @@ export default defineComponent({
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                   clip-rule="evenodd"></path>
               </svg>
-              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Assessment
-                for Learning Resource no. 5</span>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{this.$route.query.assessment_name}}</span>
             </div>
           </li>
         </ol>
@@ -79,10 +90,10 @@ export default defineComponent({
           <div class="mt-4">
             <div class="p-6 bg-white rounded-md border">
               <h2 class="text-lg font-semibold text-gray-700 capitalize text-center">
-                Assessment for Learning Resource no. 5
+                {{this.$route.query.assessment_name}} {{this.assessment}}
               </h2>
 
-              <table class="mt-6 table-auto w-full border-collapse border border-gray-300">
+              <table class="mt-6 table-auto w-full border-collapse border border-gray-300" >
                 <div class="tableHead">
                   <tr>
                     <th rowspan="2" class="border border-gray-300  px-3 py-2">Assessment for Learning Resource no. 5
@@ -98,101 +109,107 @@ export default defineComponent({
                     <td class="border border-gray-300 text-center px-3 py-2">CA</td>
                   </tr>
                 </div>
-                <div class="activity">
-                  <tr>
-                    <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Activity 1: Bring Me</span>
-                    </td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                  </tr>
-                </div>
-                <div class="objectives">
-                  <tr>
-                    <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Objectives:</span></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                  </tr>
-                  <tr>
-                    <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                  </tr>
-                  <tr>
-                    <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                  </tr>
-                </div>
-                <div class="materials">
-                  <tr>
-                    <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Materials:</span>
-                      hcucccuchcuchcuchcu</td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                  </tr>
-                </div>
-                <div class="procedure">
-                  <tr>
-                    <td class="border border-gray-300  px-3 py-2"><span class="font-semibold">Procedure:</span></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                    <td class="border border-gray-300 px-3 py-2"></td>
-                  </tr>
-                  <tr>
-                    <td class="border border-gray-300  px-3 py-2">1. Practice procedure 1</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                        value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                        value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                        value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                        value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                        value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                        value="CA" /></td>
-                  </tr>
-                  <tr>
-                    <td class="border border-gray-300  px-3 py-2">2. Practice procedure 2</td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                        value="PH+" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                        value="SE" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                        value="CV" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                        value="CD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                        value="LD" /></td>
-                    <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                        value="CA" /></td>
-                  </tr>
-                </div>
+                <section >
+                  <div class="activity" >
+                    <tr v-for="item in [1, 2 ,3]">
+                      <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Activity 1: Bring Me</span>
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                    </tr>
+                  </div>
+
+                  <div class="objectives">
+                    <tr>
+                      <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Objectives:</span></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                    </tr>
+                  </div>
+                  <div class="materials">
+                    <tr>
+                      <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Materials:</span>
+                        hcucccuchcuchcuchcu</td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                    </tr>
+                  </div>
+                  <div class="procedure">
+                    <tr>
+                      <td class="border border-gray-300  px-3 py-2"><span class="font-semibold">Procedure:</span></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300  px-3 py-2">1. Practice procedure 1</td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                                                                                       value="PH+" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                                                                                       value="SE" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                                                                                       value="CV" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                                                                                       value="CD" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                                                                                       value="LD" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
+                                                                                       value="CA" /></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-300  px-3 py-2">2. Practice procedure 2</td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
+                                                                                       value="PH+" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
+                                                                                       value="SE" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
+                                                                                       value="CV" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
+                                                                                       value="CD" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
+                                                                                       value="LD" /></td>
+                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
+                                                                                       value="CA" /></td>
+                    </tr>
+                  </div>
+                </section>
+
               </table>
+
+
               <div class="flex justify-end mt-4">
                 <button
                   class="flex items-center px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">

@@ -178,10 +178,10 @@ export default defineComponent({
                     <button class="text-green-600 hover:text-green-900" @click.prevent="active = true">
                       Edit
                     </button>
-                    <router-link :to="'/dashboard/manage-assessment?assessment_id='+assessment.id"  class="text-indigo-600 hover:text-indigo-900">
+                    <router-link :to="'/dashboard/manage-assessment?assessment_id='+assessment.id+'&assessment_name='+assessment.title"  class="text-indigo-600 hover:text-indigo-900">
                       Manage
                     </router-link>
-                    <button class="text-red-600 hover:text-red-900">
+                    <button class="text-red-600 hover:text-red-900" @click="this.assessment_store.deleteAssessment(assessment.id)">
                       Delete
                     </button>
                   </td>

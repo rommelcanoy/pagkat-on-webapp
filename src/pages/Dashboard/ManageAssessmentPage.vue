@@ -14,6 +14,7 @@ export default defineComponent({
     const assessment_store = assessmentStore()
 
     const base: Array<{
+      id: null,
       title: string,
       instructions: string,
       materials: string,
@@ -27,6 +28,7 @@ export default defineComponent({
       const base: Array<{name: string}> = []
 
       const data = {
+        id: null,
         title: '',
         instructions: '',
         materials: '',
@@ -38,6 +40,9 @@ export default defineComponent({
 
     const deleteActivity = (index: number) => {
       console.log('index', index);
+      if(activities[index].id != null){
+        assessment_store.deleteActivity(activities[index].id)
+      }
       activities.splice(index, 1);
     }
 
@@ -99,8 +104,7 @@ export default defineComponent({
               </svg>
               <router-link to=""
                 class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                Assessment
-                for Learning Resource no. 5</router-link>
+                {{this.$route.query.assessment_name}}</router-link>
             </div>
           </li>
           <li aria-current="page">

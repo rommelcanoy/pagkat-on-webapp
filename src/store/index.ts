@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {computed, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import axios from "axios";
 import {useRouter} from "vue-router";
 // @ts-ignore
@@ -66,9 +66,7 @@ export const userStore = defineStore('auth', () => {
     return {signed_up, user_data, register, login }
 })
 export const assessmentStore = defineStore('assessment_store', () =>{
-
-        const assessments = ref([])
-        const current_activities = ref([])
+        const assessments = reactive([])
         const router = useRouter()
         const addAssessment = (event: Event, form: HTMLFormElement) => {
             event.preventDefault()
@@ -78,8 +76,8 @@ export const assessmentStore = defineStore('assessment_store', () =>{
             return axios.post(import.meta.env.VITE_BACKEND_HOST+'/api/assessment/add', data).then(async response=>{
                 alert("Assessment Added")
                 // @ts-ignore
-                assessments.value.push(response.data)
-                await router.push({'name': 'ManageAssessment', query: {assessment_id: response.data.id}})
+                assessments.push(response.data)
+                await router.push({'name': 'ManageAssessment', query: {assessment_id: response.data.id, assessment_name: response.data.title}})
             }).catch(error=>{
                 alert("Something went wrong")
                 console.log(error)
@@ -89,7 +87,7 @@ export const assessmentStore = defineStore('assessment_store', () =>{
         const getAssessments = () => {
             return axios.get(import.meta.env.VITE_BACKEND_HOST+'/api/assessment/list').then(response=>{
                 // @ts-ignore
-                Array.prototype.splice.apply(assessments.value, [0, response.data.length].concat(response.data))
+                Array.prototype.splice.apply(assessments, [0, response.data.length].concat(response.data))
                 console.log(assessments)
             }).catch(error=>{
                 return error
@@ -133,7 +131,24 @@ export const assessmentStore = defineStore('assessment_store', () =>{
             })
         }
 
-        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity}
+        const deleteAssessment = async (id: any) =>{
+            return await axios.delete(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/delete`).then(response=>{
+                let index = assessments.findIndex((element: any) => element.id === id)
+
+                if (index >= 0){
+                    assessments.splice(index, 1)
+                }
+
+                alert("Assessment Deleted")
+
+            }).catch(error=>{
+                alert("Something went wrong")
+                console.error(error)
+                return error
+            })
+        }
+
+        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity, deleteAssessment}
     }
 )
 export const studentStore = defineStore('user_store', ()=>{

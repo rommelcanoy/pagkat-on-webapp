@@ -2,6 +2,7 @@
 import { defineComponent, ref } from "vue";
 import StartAssessmentModal from "./StartAssessmentModal.vue";
 import ViewAssessmentHistoryModal from "./ViewAssessmentHistoryModal.vue";
+import {studentStore} from "../store";
 
 export default defineComponent({
   name: "ManageStudents",
@@ -12,7 +13,7 @@ export default defineComponent({
   setup() {
     const active = ref(false);
     const startAssess = ref(false);
-
+    const student_controller = studentStore()
     function toggle() {
       active.value = !active.value
     }
@@ -21,7 +22,24 @@ export default defineComponent({
       active,
       startAssess,
       toggle,
+      student_controller
     }
+  },
+  methods: {
+    getAge(dateString: string){
+        let today = new Date();
+        let birthDate = new Date(dateString);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+        {
+          age--;
+        }
+        return age;
+    }
+  },
+  async mounted(){
+    this.student_controller.getStudents()
   }
 })
 
@@ -52,17 +70,17 @@ export default defineComponent({
           </button>
           <div class="py-6 px-6 lg:px-8">
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Enter enrollment code</h3>
-            <form class="space-y-6" action="/dashboard/add-student">
+            <form class="space-y-6" action="javascript:void(0)">
               <div>
-                <!-- <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enrollment 
+                <!-- /dashboard/add-student <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enrollment
                   code</label> -->
                 <input type="text" name="enrollment_code" id="enrollment_code"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  placeholder="Code" required>
+                  placeholder="Code"   :value="this.student_controller.enrollmentCode" required>
               </div>
-              <button type="submit"
-                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
-                code</button>
+              <button type="submit" @click="this.student_controller.enrollmentCode ? this.$router.push({path: '/dashboard/add-student', query: {enrollment_code: this.student_controller.enrollmentCode}}) : this.student_controller.generateCode()"
+                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                {{this.student_controller.enrollmentCode ? 'Submit Code' : 'Generate Code' }}</button>
               <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create
                   account</a>
@@ -80,19 +98,21 @@ export default defineComponent({
           </h2>
           <div class="text-end">
             <form
-              class="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
+              class="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center" action="javascript:void(0)">
               <div class=" relative ">
-                <input type="text" id=""
-                  class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                <input type="text" id="enrollment_code"
+                  class=" rounded-lg border-transparent
+                  flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400
+                  shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                   placeholder="Search Name" />
               </div>
-              <router-link to="/dashboard/add-student">
-                <button @click.prevent="toggle"
+<!--              <router-link to="/dashboard/add-student">-->
+                <button @click.prevent="toggle" @click="student_controller.enrollmentCode = ''"
                   class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200"
-                  type="submit">
+                  type="button">
                   Add Student
                 </button>
-              </router-link>
+<!--              </router-link>-->
             </form>
           </div>
         </div>
@@ -124,18 +144,18 @@ export default defineComponent({
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <tr v-for="student in this.student_controller.students" :key="student.id">
+                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" >
                     <div class="flex items-center">
                       <div class="flex-shrink-0">
                         <a href="#" class="block relative">
-                          <img alt="profil" src="https://tailwindui.com/img/avatar-3.jpg"
+                          <img alt="profil" :src="student.student_image"
                             class="mx-auto object-cover rounded-full h-10 w-10 " />
                         </a>
                       </div>
                       <div class="ml-3">
                         <p class="text-gray-900 whitespace-no-wrap">
-                          Jean marc
+                          {{ student.first_name }} {{student.last_name}}
                         </p>
                       </div>
                     </div>
@@ -147,7 +167,7 @@ export default defineComponent({
                       </td> -->
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <p class="text-gray-900 whitespace-no-wrap">
-                      8
+                      {{ this.getAge(student.birth_date) }}
                     </p>
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -155,7 +175,7 @@ export default defineComponent({
                       <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
                       </span>
                       <span class="relative">
-                        1
+                        {{ this.getAge(student.birth_date) <= 3 ? 1 : 2 }}
                       </span>
                     </span>
                   </td>
@@ -169,53 +189,46 @@ export default defineComponent({
                     </div>
                   </td>
                 </tr>
-                
-                
-                
-
-
-
-
               </tbody>
             </table>
-            <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
-              <div class="flex items-center">
-                <button type="button"
-                  class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">
-                  <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z">
-                    </path>
-                  </svg>
-                </button>
-                <button type="button"
-                  class="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">
-                  1
-                </button>
-                <button type="button"
-                  class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">
-                  2
-                </button>
-                <button type="button"
-                  class="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100">
-                  3
-                </button>
-                <button type="button"
-                  class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">
-                  4
-                </button>
-                <button type="button"
-                  class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
-                  <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
-                    </path>
-                  </svg>
-                </button>
-              </div>
-            </div>
+<!--            <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">-->
+<!--              <div class="flex items-center">-->
+<!--                <button type="button"-->
+<!--                  class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                  <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"-->
+<!--                    xmlns="http://www.w3.org/2000/svg">-->
+<!--                    <path-->
+<!--                      d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z">-->
+<!--                    </path>-->
+<!--                  </svg>-->
+<!--                </button>-->
+<!--                <button type="button"-->
+<!--                  class="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">-->
+<!--                  1-->
+<!--                </button>-->
+<!--                <button type="button"-->
+<!--                  class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                  2-->
+<!--                </button>-->
+<!--                <button type="button"-->
+<!--                  class="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                  3-->
+<!--                </button>-->
+<!--                <button type="button"-->
+<!--                  class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                  4-->
+<!--                </button>-->
+<!--                <button type="button"-->
+<!--                  class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                  <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"-->
+<!--                    xmlns="http://www.w3.org/2000/svg">-->
+<!--                    <path-->
+<!--                      d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">-->
+<!--                    </path>-->
+<!--                  </svg>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
       </div>

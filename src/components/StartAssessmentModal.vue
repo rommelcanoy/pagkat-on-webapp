@@ -1,16 +1,26 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import {assessmentStore} from "../store";
 
 export default defineComponent({
   name: "StartAssessmentModal",
   components: {
   },
+  data(){
+  return {
+      current_assessment_selected: {id: null, title: null},
+    }
+  },
   setup() {
     const startAssess = ref(false);
-
+    const assessment_store = assessmentStore()
     return {
       startAssess,
+      assessment_store
     }
+  },
+  async mounted(){
+    await this.assessment_store.getAssessments()
   }
 })
 </script>
@@ -37,23 +47,22 @@ export default defineComponent({
         </button>
         <div class="py-6 px-6 lg:px-8">
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Select assessment</h3>
-          <form class="space-y-6" action="/dashboard/start-assessment">
+
+          <form class="space-y-6" action="javascript:void(0)">
               <!-- <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
                 option</label> -->
+
             <select id="countries"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected>Choose an assessment</option>
-              <option value="1">Assessment 1</option>
-              <option value="2">Assessment 2</option>
-              <option value="3">Assessment 3</option>
+                    v-model="this.current_assessment_selected"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option :value="{id: null, title: null}">Select Assessment</option>
+              <option :value="assessment"  v-for="assessment in this.assessment_store.assessments" :key="assessment.id">{{assessment.title}}</option>
             </select>
 
-            <button type="submit"
-              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-            <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create
-                  account</a>
-              </div> -->
+            <br>
+            <router-link :to="this.current_assessment_selected.id == null ? '' : '/dashboard/start-assessment?assessment_id='+this.current_assessment_selected.id+'&assessment_name='+this.current_assessment_selected.title"  class="mt-5 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Submit
+            </router-link>
           </form>
         </div>
       </div>

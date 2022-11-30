@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import {assessmentStore} from "../store";
 
 export default defineComponent({
   name: "ManageAssessments",
@@ -8,17 +9,15 @@ export default defineComponent({
   setup() {
     const active = ref(false);
     const activeAdd = ref(false);
-    // function toggle() {
-    //   active.value = !active.value
-    // }
-
-    // function toggleAdd() {
-    //   activeAdd.value = !activeAdd.value
-    // }
+    const assessment_store = assessmentStore()
     return {
       active,
       activeAdd,
+      assessment_store
     }
+  },
+  async mounted (){
+    await this.assessment_store.getAssessments()
   }
 })
 
@@ -92,18 +91,18 @@ export default defineComponent({
           </button>
           <div class="py-6 px-6 lg:px-8">
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Assessment</h3>
-            <form class="space-y-6" action="#">
+            <form class="space-y-6" action="javascript:void(0)" ref="assessment_form" @submit.prevent="this.assessment_store.addAssessment($event, this.$refs.assessment_form)">
               <div>
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assessment
+                <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assessment
                   Title</label>
-                <input type="text" name="enrollment_code" id="enrollment_code"
+                <input type="text" name="title" id="title"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Title" required>
               </div>
               <div class="flex gap-2">
                 <button type="button" @click.prevent="activeAdd = false"
                   class="w-full text-red-500 ring-1 ring-red-500 hover:bg-red-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancel</button>
-                <button type="submit"
+                <button type="submit" @click="this.$refs.assessment_form.submit()"
                   class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
               </div>
               <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
@@ -160,12 +159,12 @@ export default defineComponent({
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr v-for="assessment in this.assessment_store.assessments" :key="assessment.id">
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div class="flex items-center">
                       <div class="">
                         <p class="text-gray-900 whitespace-no-wrap">
-                          Assessment for Learning Resource no. 5
+                          {{assessment.title}}
                         </p>
                       </div>
                     </div>
@@ -179,10 +178,10 @@ export default defineComponent({
                     <button class="text-green-600 hover:text-green-900" @click.prevent="active = true">
                       Edit
                     </button>
-                    <router-link to="/dashboard/manage-assessment" class="text-indigo-600 hover:text-indigo-900">
+                    <router-link :to="'/dashboard/manage-assessment?assessment_id='+assessment.id+'&assessment_name='+assessment.title"  class="text-indigo-600 hover:text-indigo-900">
                       Manage
                     </router-link>
-                    <button class="text-red-600 hover:text-red-900">
+                    <button class="text-red-600 hover:text-red-900" @click="this.assessment_store.deleteAssessment(assessment.id)">
                       Delete
                     </button>
                   </td>

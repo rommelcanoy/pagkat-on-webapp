@@ -89,10 +89,12 @@ const routes = [
       },
 			{
 				path: 'assessments',
+				name: "AssessmentDashboard",
         component: Assessments,
       },
 			{
 				path: 'manage-assessment',
+				name: 'ManageAssessment',
 				component: ManageAssessment,
 			},
 			{

@@ -2,6 +2,7 @@
 import { defineComponent, ref, reactive } from "vue";
 import Sidebar from "../../components/Sidebar.vue";
 import AssessmentForm from "../../components/AssessmentForm.vue";
+import {assessmentStore} from "../../store";
 
 export default defineComponent({
   name: "ManageAssessmentPage",
@@ -10,66 +11,47 @@ export default defineComponent({
     AssessmentForm
   },
   setup() {
-    const activities = reactive(
-      [
-        {
-          title: 'activity 1',
-          instructions: 'instruction test',
-          materials: 'materials test1, test 11111',
-          procedures: 'procdure 1, procedure 11111',
-          objectives: [
-            {
-              name: ' test objective 1',
-            }
-          ]
-        },
-        {
-          title: 'activity 2',
-          instructions: 'instruction test 22222',
-          materials: 'materials test1, test 2222',
-          procedures: 'procdure 1, procedure 2222',
-          objectives: [
-            {
-              name: ' test objective in activity 2',
-            },
-            {
-              name: ' test 2 objective in activity 2',
-            }
-          ]
-        }
-      ]
-    );
+    const assessment_store = assessmentStore()
+
+    const base: Array<{
+      id: null,
+      title: string,
+      instructions: string,
+      materials: string,
+      procedure: string,
+      objectives: Array<{name: string}>
+    }> = []
+
+    const activities = reactive(base);
 
     const addActivity = () => {
+      const base: Array<{name: string}> = []
+
       const data = {
-        title: 'activity new',
+        id: null,
+        title: '',
         instructions: '',
         materials: '',
-        procedures: '',
-        objectives: [
-          {
-            id: 1,
-            name: '',
-          },
-          {
-            id: 1,
-            name: '',
-          }
-        ]
+        procedure: '',
+        objectives: base
       }
       activities.push(data);
     }
 
     const deleteActivity = (index: number) => {
       console.log('index', index);
+      if(activities[index].id != null){
+        assessment_store.deleteActivity(activities[index].id)
+      }
       activities.splice(index, 1);
     }
 
     const addObjective = (activityIndex: number) => {
       const data = {
-        name: 'new objective',
+        name: '',
       }
       activities[activityIndex].objectives.push(data);
+      console.log(activities[activityIndex])
     }
 
     const removeObjective = (activityIndex: number, objectiveIndex: number) => {
@@ -82,7 +64,14 @@ export default defineComponent({
       deleteActivity,
       addObjective,
       removeObjective,
+      assessment_store
     }
+  },
+  async mounted(){
+    const data = await this.assessment_store.getActivities(this.$route.query.assessment_id)
+    // @ts-ignore
+    Array.prototype.splice.apply(this.activities, [0, data.length].concat(data))
+    console.log(data)
   }
 })
 
@@ -115,8 +104,7 @@ export default defineComponent({
               </svg>
               <router-link to=""
                 class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                Assessment
-                for Learning Resource no. 5</router-link>
+                {{this.$route.query.assessment_name}}</router-link>
             </div>
           </li>
           <li aria-current="page">
@@ -139,7 +127,7 @@ export default defineComponent({
             <h3 class="text-2xl text-gray-700 ">Manage Assessment</h3>
             <div class="">
               <button
-                class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700" @click="this.assessment_store.saveAssessment(this.activities, this.$route.query.assessment_id)">
                 Save Assessment
               </button>
             </div>
@@ -151,13 +139,13 @@ export default defineComponent({
                 Assessment for Learning Resource no. 5
               </h2>
 
-              <div v-if="activities.length <= 0" class="">
-                <h3 class="mt-3 text-lg">
+              <div v-if="activities.length <= 0" class="text-center">
+                <h3 class="mt-3 text-lg ">
                   No Activity, please add
                 </h3>
               </div>
 
-              <div v-else v-for="(activity, index) in activities" :key="activity.title">
+              <div v-else v-for="(activity, index) in activities" :key="index">
                 <assessment-form :activity="activity" :index="index" @deleteActivity="deleteActivity"
                   @addObjective="addObjective" @removeObjective="removeObjective" />
               </div>

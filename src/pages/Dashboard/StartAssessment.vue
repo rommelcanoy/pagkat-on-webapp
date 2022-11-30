@@ -93,13 +93,8 @@ export default defineComponent({
                 {{this.$route.query.assessment_name}} {{this.assessment}}
               </h2>
 
-<<<<<<< HEAD
               <table class="mt-6 table-auto w-full border-collapse border border-gray-300">
                 <thead class="tableHead">
-=======
-              <table class="mt-6 table-auto w-full border-collapse border border-gray-300" >
-                <div class="tableHead">
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
                   <tr>
                     <th rowspan="2" class="border border-gray-300  px-3 py-2">Assessment for Learning Resource no. 5
                     </th>
@@ -113,20 +108,12 @@ export default defineComponent({
                     <td class="border border-gray-300 text-center px-3 py-2">LD</td>
                     <td class="border border-gray-300 text-center px-3 py-2">CA</td>
                   </tr>
-<<<<<<< HEAD
                 </thead>
                 <tbody class="data_container" v-for="n in 3">
                   <!-- ACTIVITY -->
                     <tr>
                       <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Activity 1: Bring
                           Me</span>
-=======
-                </div>
-                <section >
-                  <div class="activity" >
-                    <tr v-for="item in [1, 2 ,3]">
-                      <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Activity 1: Bring Me</span>
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
                       </td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
@@ -135,14 +122,8 @@ export default defineComponent({
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                     </tr>
-<<<<<<< HEAD
                   <!-- ACTIVITY (END) -->
                   <!-- OBJECTIVES -->
-=======
-                  </div>
-
-                  <div class="objectives">
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
                     <tr>
                       <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Objectives:</span></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
@@ -170,13 +151,8 @@ export default defineComponent({
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                     </tr>
-<<<<<<< HEAD
                   <!-- OBJECTIVES (END) -->
                   <!-- MATERIALS -->
-=======
-                  </div>
-                  <div class="materials">
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
                     <tr>
                       <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Materials:</span>
                         hcucccuchcuchcuchcu</td>
@@ -187,13 +163,8 @@ export default defineComponent({
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                     </tr>
-<<<<<<< HEAD
                   <!-- MATERIALS (END) -->
                   <!-- PROCEDURES -->
-=======
-                  </div>
-                  <div class="procedure">
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
                     <tr>
                       <td class="border border-gray-300  px-3 py-2"><span class="font-semibold">Procedure:</span></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
@@ -206,7 +177,6 @@ export default defineComponent({
                     <tr>
                       <td class="border border-gray-300  px-3 py-2">1. Practice procedure 1</td>
                       <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-<<<<<<< HEAD
                           value="PH+" /></td>
                       <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
                           value="SE" /></td>
@@ -218,24 +188,10 @@ export default defineComponent({
                           value="LD" /></td>
                       <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
                           value="CA" /></td>
-=======
-                                                                                       value="PH+" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                                                                                       value="SE" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                                                                                       value="CV" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                                                                                       value="CD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                                                                                       value="LD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                                                                                       value="CA" /></td>
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
                     </tr>
                     <tr>
                       <td class="border border-gray-300  px-3 py-2">2. Practice procedure 2</td>
                       <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-<<<<<<< HEAD
                           value="PH+" /></td>
                       <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
                           value="SE" /></td>
@@ -250,23 +206,6 @@ export default defineComponent({
                     </tr>
                   <!-- PROCEDURES (END) -->
                 </tbody>
-=======
-                                                                                       value="PH+" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                                                                                       value="SE" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                                                                                       value="CV" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                                                                                       value="CD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                                                                                       value="LD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                                                                                       value="CA" /></td>
-                    </tr>
-                  </div>
-                </section>
-
->>>>>>> 75c57c8cd1c8abe4e4f57dbc0728e8e8b755d4fd
               </table>
 
 

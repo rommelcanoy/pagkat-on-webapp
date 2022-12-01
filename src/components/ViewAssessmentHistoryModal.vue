@@ -1,15 +1,31 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import {studentStore} from "../store";
 
 export default defineComponent({
   name: "ViewAssessmentHistoryModal",
+  props: ['student_id'],
   components: {
   },
   setup() {
     const startAssess = ref(false);
-
+    const student_controller = studentStore()
     return {
       startAssess,
+      student_controller
+    }
+  },
+  data(){
+    return {
+      history: []
+    }
+  },
+  methods: {
+    get_assessments: async function(){
+      let data = await this.student_controller.getAssessmentHistory(this.student_id)
+      // @ts-ignore
+      Array.prototype.splice.apply(this.history, [0, data.length].concat(data))
+      this.startAssess = true
     }
   }
 })
@@ -57,12 +73,12 @@ export default defineComponent({
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="assessment in this.history">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div class="flex items-center">
                         <div class="ml-3">
                           <p class="text-gray-900 whitespace-no-wrap">
-                            Assessment 1
+                            {{ assessment.assessment }}
                           </p>
                         </div>
                       </div>
@@ -72,13 +88,13 @@ export default defineComponent({
                         <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
                         </span>
                         <span class="relative">
-                          Test
+                          Assessment
                         </span>
                       </span>
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div class="flex gap-5 items-center">
-                        <router-link to="/dashboard/view-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
+                        <router-link :to="'/dashboard/view-assessment?assessment_id='+assessment.assessment_id+'&result_id='+assessment.id+'&assessment_name='+assessment.assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
                           View Assessment
                         </router-link>
                         <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->
@@ -87,44 +103,44 @@ export default defineComponent({
                   </tr>
                 </tbody>
               </table>
-              <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
-                <div class="flex items-center">
-                  <button type="button"
-                    class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">
-                    <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z">
-                      </path>
-                    </svg>
-                  </button>
-                  <button type="button"
-                    class="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">
-                    1
-                  </button>
-                  <button type="button"
-                    class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">
-                    2
-                  </button>
-                  <button type="button"
-                    class="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100">
-                    3
-                  </button>
-                  <button type="button"
-                    class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">
-                    4
-                  </button>
-                  <button type="button"
-                    class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
-                    <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
-                      </path>
-                    </svg>
-                  </button>
-                </div>
-              </div>
+<!--              <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">-->
+<!--                <div class="flex items-center">-->
+<!--                  <button type="button"-->
+<!--                    class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                    <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"-->
+<!--                      xmlns="http://www.w3.org/2000/svg">-->
+<!--                      <path-->
+<!--                        d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z">-->
+<!--                      </path>-->
+<!--                    </svg>-->
+<!--                  </button>-->
+<!--                  <button type="button"-->
+<!--                    class="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">-->
+<!--                    1-->
+<!--                  </button>-->
+<!--                  <button type="button"-->
+<!--                    class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                    2-->
+<!--                  </button>-->
+<!--                  <button type="button"-->
+<!--                    class="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                    3-->
+<!--                  </button>-->
+<!--                  <button type="button"-->
+<!--                    class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                    4-->
+<!--                  </button>-->
+<!--                  <button type="button"-->
+<!--                    class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                    <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"-->
+<!--                      xmlns="http://www.w3.org/2000/svg">-->
+<!--                      <path-->
+<!--                        d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">-->
+<!--                      </path>-->
+<!--                    </svg>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </div>
         </div>
@@ -132,7 +148,7 @@ export default defineComponent({
     </div>
   </div>
   <button class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500"
-    @click="startAssess = true">Assessment History</button>
+    @click="get_assessments()" >Assessment History</button>
 </template>
 
 

@@ -181,11 +181,11 @@ export default defineComponent({
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div class="flex gap-5 items-center">
-                      <router-link to="/dashboard/edit-student?id=123" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
-                        Edit
-                      </router-link>
-                     <start-assessment-modal />
-                     <view-assessment-history-modal />
+<!--                      <router-link to="/dashboard/edit-student?id=123" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">-->
+<!--                        Edit-->
+<!--                      </router-link>-->
+                     <start-assessment-modal :student_id="student.id" />
+                     <view-assessment-history-modal :student_id="student.id" />
                     </div>
                   </td>
                 </tr>

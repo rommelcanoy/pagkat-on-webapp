@@ -90,9 +90,9 @@ export default defineComponent({
           <div class="mt-4">
             <div class="p-6 bg-white rounded-md border">
               <h2 class="text-lg font-semibold text-gray-700 capitalize text-center">
-                {{this.$route.query.assessment_name}} {{this.assessment}}
+                {{this.$route.query.assessment_name}} {{}}
               </h2>
-
+              <form action="javascript:void(0)" ref="start_assessment_form" @submit="this.assessment_store.submitAssessment(this.$route.query.assessment_id, this.$route.query.student_id, $event, this.$refs.start_assessment_form)">
               <table class="mt-6 table-auto w-full border-collapse border border-gray-300">
                 <thead class="tableHead">
                   <tr>
@@ -109,11 +109,12 @@ export default defineComponent({
                     <td class="border border-gray-300 text-center px-3 py-2">CA</td>
                   </tr>
                 </thead>
-                <tbody class="data_container" v-for="n in 3">
+                <tbody class="data_container" v-for="item in this.assessment">
                   <!-- ACTIVITY -->
                     <tr>
-                      <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Activity 1: Bring
-                          Me</span>
+                      <td class="border border-gray-300 px-3 py-2">
+                        <span class="font-semibold">{{item.title}}</span>
+                        <input :name="'activity_'+item.id" type="hidden" :value="item.id" />
                       </td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
@@ -132,30 +133,23 @@ export default defineComponent({
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
+
                     </tr>
-                    <tr>
-                      <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
+                    <tr v-for="objective in item.objectives">
+                      <td class="border border-gray-300 px-3 py-2">
+                        {{objective.name}}
+                      </td>
+
+                      <td class="border border-gray-300  px-3 py-2 text-center" v-for="rate in objective.domains">
+                        <input :name="'objective_'+objective.id" type="radio" :value="rate.id" />
+                      </td>
                     </tr>
-                    <tr>
-                      <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                      <td class="border border-gray-300 px-3 py-2"></td>
-                    </tr>
+
                   <!-- OBJECTIVES (END) -->
                   <!-- MATERIALS -->
                     <tr>
                       <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Materials:</span>
-                        hcucccuchcuchcuchcu</td>
+                        {{item.materials}}</td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
@@ -174,47 +168,36 @@ export default defineComponent({
                       <td class="border border-gray-300 px-3 py-2"></td>
                       <td class="border border-gray-300 px-3 py-2"></td>
                     </tr>
-                    <tr>
-                      <td class="border border-gray-300  px-3 py-2">1. Practice procedure 1</td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                          value="PH+" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                          value="SE" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                          value="CV" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                          value="CD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                          value="LD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice1" type="radio"
-                          value="CA" /></td>
+                    <tr >
+                      <td class="border border-gray-300  px-3 py-2">{{ item.procedure }}</td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
+                      <td class="border border-gray-300 px-3 py-2"></td>
                     </tr>
-                    <tr>
-                      <td class="border border-gray-300  px-3 py-2">2. Practice procedure 2</td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                          value="PH+" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                          value="SE" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                          value="CV" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                          value="CD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                          value="LD" /></td>
-                      <td class="border border-gray-300  px-3 py-2 text-center"><input name="practice2" type="radio"
-                          value="CA" /></td>
-                    </tr>
+
+                  <tr>
+                    <td class="border border-gray-300  px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                    <td class="border border-gray-300 px-3 py-2"></td>
+                  </tr>
                   <!-- PROCEDURES (END) -->
                 </tbody>
               </table>
+                <div class="flex justify-end mt-4">
+                  <button @click="this.$refs.start_assessment_form.submit()"
+                          class="flex items-center px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                    <span>Submit Assessment</span>
+                  </button>
+                </div>
+              </form>
 
-
-              <div class="flex justify-end mt-4">
-                <button
-                  class="flex items-center px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
-                  <span>Submit Assessment</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>

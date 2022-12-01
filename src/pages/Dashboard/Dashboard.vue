@@ -80,7 +80,7 @@ export default defineComponent({
                 </svg>
               </div>
               <div class="flex flex-col justify-center align-middle">
-                <p class="text-3xl font-semibold leading-none">200</p>
+                <p class="text-3xl font-semibold leading-none">0</p>
                 <p class="capitalize">Students</p>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default defineComponent({
                 </svg>
               </div>
               <div class="flex flex-col justify-center align-middle">
-                <p class="text-3xl font-semibold leading-none">4</p>
+                <p class="text-3xl font-semibold leading-none">0</p>
                 <p class="capitalize">Assessments</p>
               </div>
             </div>

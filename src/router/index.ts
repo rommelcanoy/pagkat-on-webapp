@@ -73,6 +73,7 @@ const routes = [
       },
       {
         path: 'students',
+	    name: 'ManageStudentDashboard',
         component: Students,
       },
       {

@@ -157,7 +157,45 @@ export const assessmentStore = defineStore('assessment_store', () =>{
             })
         }
 
-        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity, deleteAssessment, retrieveAssessment}
+        const submitAssessment = async (assessment_id: number, student_id: number, event: Event, form: HTMLFormElement) => {
+            //api/assessment/record
+
+            event.preventDefault()
+            const formData = new FormData(form)
+            let objectives : Array<{}> =[]
+
+            let data = {
+                objectives: objectives,
+                student_id: student_id,
+                assessment_id: assessment_id
+            }
+
+            formData.forEach((value, key)=>{
+                let obj: any = {};
+                obj[key] = value
+                data.objectives.push(obj)
+            })
+
+            return axios.post(import.meta.env.VITE_BACKEND_HOST+'/api/assessment/record', data).then(async response=>{
+                alert("Assessment Submitted")
+                await router.push({'name': 'ManageStudentDashboard'})
+            }).catch(error=>{
+                alert("Something went wrong")
+                console.log(error)
+            })
+
+        }
+
+        const retrieveAssessmentResult = async (result_id: any) => {
+            return await axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${result_id}/result`).then(response=>{
+                return response.data
+            }).catch(error=>{
+                console.error(error)
+                return []
+            })
+        }
+
+        return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity, deleteAssessment, retrieveAssessment, submitAssessment, retrieveAssessmentResult}
     }
 )
 export const studentStore = defineStore('user_store', ()=>{
@@ -201,7 +239,16 @@ export const studentStore = defineStore('user_store', ()=>{
         })
     }
 
-    return {enrollmentCode, generateCode, addStudent, getStudents, students}
+    const getAssessmentHistory = async  (id: number) =>{
+        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/history`).then(response=>{
+            return response.data
+        }).catch(error=>{
+            alert("Something went wrong")
+            console.error(error)
+        })
+    }
+
+    return {enrollmentCode, generateCode, addStudent, getStudents, students, getAssessmentHistory}
 })
 
 export const systemParams = defineStore('sys_param', ()=>{

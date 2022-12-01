@@ -1,13 +1,28 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import {assessmentStore} from "../store";
 
 export default defineComponent({
   name: "ViewAssessment",
   components: {
   },
-  setup() {
+  data(){
     return {
+      assessment: []
     }
+  },
+  setup() {
+    const assessment_store = assessmentStore()
+    return {
+      assessment_store
+    }
+  },
+  async mounted(){
+    let result = await this.assessment_store.retrieveAssessmentResult(this.$route.query.result_id)
+
+    console.log(result)
+    // @ts-ignore
+    Array.prototype.splice.apply(this.assessment, [0, result.length].concat(result))
   }
 })
 
@@ -16,13 +31,13 @@ export default defineComponent({
 <template>
   <div class="p-6 bg-white rounded-md border">
     <h2 class="text-lg font-semibold text-gray-700 capitalize text-center">
-      Assessment for Learning Resource no. 5
+      {{ this.$route.query.assessment_name }}
     </h2>
 
     <table class="mt-6 table-auto w-full border-collapse border border-gray-300">
-      <div class="tableHead">
+      <thead class="tableHead">
         <tr>
-          <th rowspan="2" class="border border-gray-300  px-3 py-2">Assessment for Learning Resource no. 5
+          <th rowspan="2" class="border border-gray-300  px-3 py-2">{{ this.$route.query.assessment_name }}
           </th>
           <th colspan="6" class="border border-gray-300  px-3 py-2">Domains</th>
         </tr>
@@ -34,121 +49,99 @@ export default defineComponent({
           <td class="border border-gray-300 text-center px-3 py-2">LD</td>
           <td class="border border-gray-300 text-center px-3 py-2">CA</td>
         </tr>
-      </div>
-      <div class="activity">
-        <tr>
-          <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Activity 1: Bring Me</span>
-          </td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-        </tr>
-      </div>
-      <div class="objectives">
-        <tr>
-          <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Objectives:</span></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-        </tr>
-        <tr>
-          <td class="border border-gray-300 px-3 py-2">1. objectve 1</td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-        </tr>
-        <tr>
-          <td class="border border-gray-300 px-3 py-2">1. objectve 2</td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-        </tr>
-      </div>
-      <div class="materials">
-        <tr>
-          <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Materials:</span>
-            hcucccuchcuchcuchcu</td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-        </tr>
-      </div>
-      <div class="procedure">
-        <tr>
-          <td class="border border-gray-300  px-3 py-2"><span class="font-semibold">Procedure:</span></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-          <td class="border border-gray-300 px-3 py-2"></td>
-        </tr>
-        <tr>
-          <td class="border border-gray-300  px-3 py-2">1. Practice procedure 1</td>
-          <td class="border border-gray-300  px-3 py-2 text-center flex justify-center text-green-500">
+      </thead>
+
+      <tbody class="data_container" v-for="item in this.assessment">
+
+      <!-- ACTIVITY -->
+      <tr>
+        <td class="border border-gray-300 px-3 py-2">
+          <span class="font-semibold">{{item.title}}</span>
+          <input :name="'activity_'+item.id" type="hidden" :value="item.id" />
+        </td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+      </tr>
+      <!-- ACTIVITY (END) -->
+
+      <!-- OBJECTIVES -->
+      <tr>
+        <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Objectives:</span></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+
+      </tr>
+      <tr v-for="objective in item.objectives">
+        <td class="border border-gray-300 px-3 py-2">
+          {{objective.name}}
+        </td>
+        <td class="border border-gray-300  px-3 py-2 text-center"  v-for="rate in objective.domains">
+
+          <div v-if="objective.result === rate.id">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
             </svg>
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+          </div>
+        </td>
 
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+<!--        <td class="border border-gray-300  px-3 py-2 text-center flex justify-center text-green-500" >-->
 
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+<!--        </td>-->
+      </tr>
 
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+      <!-- OBJECTIVES (END) -->
 
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+      <tr>
+        <td class="border border-gray-300 px-3 py-2"><span class="font-semibold">Materials:</span>
+          {{item.materials}}</td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+      </tr>
 
-          </td>
-        </tr>
-        <tr>
-          <td class="border border-gray-300  px-3 py-2">2. Practice procedure 2</td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+      <tr>
+        <td class="border border-gray-300  px-3 py-2"><span class="font-semibold">Procedure:</span></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+      </tr>
+      <tr >
+        <td class="border border-gray-300  px-3 py-2">{{ item.procedure }}</td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+      </tr>
 
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
+      <tr>
+        <td class="border border-gray-300  px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+        <td class="border border-gray-300 px-3 py-2"></td>
+      </tr>
+      </tbody>
 
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
-
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center flex justify-center text-green-500">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
-
-          </td>
-          <td class="border border-gray-300  px-3 py-2 text-center">
-
-          </td>
-        </tr>
-      </div>
     </table>
     <!-- <div class="flex justify-end mt-4">
       <button

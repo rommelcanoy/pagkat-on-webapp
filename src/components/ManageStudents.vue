@@ -163,11 +163,7 @@ export default defineComponent({
                       </div>
                       <div class="ml-3">
                         <p class="text-gray-900 whitespace-no-wrap">
-<<<<<<< Updated upstream
                           {{ student.first_name }}
-=======
-                          {{ student.first_name }} {{ student.last_name }}
->>>>>>> Stashed changes
                         </p>
                       </div>
                     </div>

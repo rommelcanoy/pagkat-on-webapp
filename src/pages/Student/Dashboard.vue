@@ -136,9 +136,9 @@ export default defineComponent({
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div class="flex gap-5 items-center">
-<!--                      <router-link :to="'/dashboard/view-assessment?assessment_id='+assessment.assessment_id+'&result_id='+assessment.id+'&assessment_name='+assessment.assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">-->
-<!--                        View Assessment-->
-<!--                      </router-link>-->
+                      <router-link :to="'/student/view-assessment?assessment_id='+assessment.assessment_id+'&result_id='+assessment.id+'&assessment_name='+assessment.assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
+                        View Assessment
+                      </router-link>
                       <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->
                     </div>
                   </td>

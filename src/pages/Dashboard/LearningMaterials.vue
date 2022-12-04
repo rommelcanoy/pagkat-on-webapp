@@ -3,6 +3,9 @@ import { defineComponent } from "vue";
 import Sidebar from "../../components/Sidebar.vue";
 import { ref } from 'vue'
 import ManageAssessments from "../../components/ManageAssessments.vue";
+import {learningMaterialsStore} from "../../store";
+import fileDownload from 'js-file-download'
+import axios from "axios";
 
 export default defineComponent({
   name: "LearningMaterials",
@@ -12,9 +15,27 @@ export default defineComponent({
   },
   setup() {
     const active = ref(false);
-
+    const learning_store = learningMaterialsStore()
     return {
-      active
+      active, learning_store
+    }
+  },
+  async mounted(){
+    await this.learning_store.retrieve()
+  },
+  methods: {
+    download: function (url: any, file_name: any){
+
+      axios.get(url, {
+        responseType: 'blob',
+      }).then(res => {
+        fileDownload(res.data, file_name);
+      });
+      // let downloading = browser.downloads.download({
+      //   url : downloadUrl,
+      //   filename : 'my-image-again.png',
+      //   conflictAction : 'uniquify'
+      // });
     }
   }
 })
@@ -46,7 +67,7 @@ export default defineComponent({
             </button>
             <div class="py-6 px-6 lg:px-8">
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Upload File</h3>
-              <form class="space-y-6" action="#">
+              <form class="space-y-6" action="javascript:void(0)" ref="learning_form" @submit="this.learning_store.upload($event, this.$refs.learning_form); active = false">
 
                 <div class="flex items-center justify-center w-full">
                   <label for="dropzone-file"
@@ -59,17 +80,17 @@ export default defineComponent({
                         </path>
                       </svg>
                       <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
-                          upload</span> or drag and drop</p>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                          upload</span></p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
                     </div>
-                    <input id="dropzone-file" type="file" class="hidden" />
+                    <input id="dropzone-file" required name="uploaded_file" type="file" class="hidden"  />
                   </label>
                 </div>
 
                 <div class="flex gap-2">
                   <button type="button" @click.prevent="active = false"
                     class="w-full text-red-500 ring-1 ring-red-500 hover:bg-red-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Cancel</button>
-                  <button type="submit"
+                  <button type="submit" @click="this.$refs.learning_form.submit()"
                     class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
                 </div>
                 <!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
@@ -81,6 +102,8 @@ export default defineComponent({
           </div>
         </div>
       </div>
+      <iframe id="my_iframe" style="display:none;"></iframe>
+
       <nav class="flex p-5 border-b w-full fixed bg-white" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
           <li class="inline-flex items-center">
@@ -138,18 +161,12 @@ export default defineComponent({
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr v-for="material in this.learning_store.materials" :key="material.id">
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
-                          <div class="flex-shrink-0">
-                            <a href="#" class="block relative">
-                              <img alt="profil" src="https://tailwindui.com/img/avatar-3.jpg"
-                                class="mx-auto object-cover rounded-full h-10 w-10 " />
-                            </a>
-                          </div>
                           <div class="ml-3">
                             <p class="text-gray-900 whitespace-no-wrap">
-                              Jean.pdf
+                              {{material.file_name}}
                             </p>
                           </div>
                         </div>
@@ -161,7 +178,10 @@ export default defineComponent({
                           </td> -->
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex gap-5 items-center">
-                          <button type="button"
+
+                          <a
+                              @click="this.download(material.uploaded_file, material.file_name)" href="javascript:void(0)"
+                             download
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Download
 
@@ -171,58 +191,52 @@ export default defineComponent({
                                 d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
                                 clip-rule="evenodd"></path>
                             </svg>
-                          </button>
+                          </a>
                           <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->
                         </div>
                       </td>
                     </tr>
 
-
-
-
-
-
-
                   </tbody>
                 </table>
-                <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
-                  <div class="flex items-center">
-                    <button type="button"
-                      class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">
-                      <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z">
-                        </path>
-                      </svg>
-                    </button>
-                    <button type="button"
-                      class="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">
-                      1
-                    </button>
-                    <button type="button"
-                      class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">
-                      2
-                    </button>
-                    <button type="button"
-                      class="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100">
-                      3
-                    </button>
-                    <button type="button"
-                      class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">
-                      4
-                    </button>
-                    <button type="button"
-                      class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">
-                      <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
-                        </path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
+<!--                <div class="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">-->
+<!--                  <div class="flex items-center">-->
+<!--                    <button type="button"-->
+<!--                      class="w-full p-4 border text-base rounded-l-xl text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                      <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"-->
+<!--                        xmlns="http://www.w3.org/2000/svg">-->
+<!--                        <path-->
+<!--                          d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z">-->
+<!--                        </path>-->
+<!--                      </svg>-->
+<!--                    </button>-->
+<!--                    <button type="button"-->
+<!--                      class="w-full px-4 py-2 border-t border-b text-base text-indigo-500 bg-white hover:bg-gray-100 ">-->
+<!--                      1-->
+<!--                    </button>-->
+<!--                    <button type="button"-->
+<!--                      class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                      2-->
+<!--                    </button>-->
+<!--                    <button type="button"-->
+<!--                      class="w-full px-4 py-2 border-t border-b text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                      3-->
+<!--                    </button>-->
+<!--                    <button type="button"-->
+<!--                      class="w-full px-4 py-2 border text-base text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                      4-->
+<!--                    </button>-->
+<!--                    <button type="button"-->
+<!--                      class="w-full p-4 border-t border-b border-r text-base  rounded-r-xl text-gray-600 bg-white hover:bg-gray-100">-->
+<!--                      <svg width="9" fill="currentColor" height="8" class="" viewBox="0 0 1792 1792"-->
+<!--                        xmlns="http://www.w3.org/2000/svg">-->
+<!--                        <path-->
+<!--                          d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">-->
+<!--                        </path>-->
+<!--                      </svg>-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </div>-->
               </div>
             </div>
           </div>

@@ -1,9 +1,14 @@
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import {studentDashboard} from "../../store";
 
 export default defineComponent({
   name: "StudentLogin",
   components: {
+  },
+  setup(){
+    const student_store = studentDashboard()
+    return {student_store}
   }
 })
 </script>
@@ -22,10 +27,10 @@ export default defineComponent({
           <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Log in
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form class="space-y-4 md:space-y-6" action="javascript:void(0)" ref="student_form" @submit="this.student_store.get_student($event)">
             <div>
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-              <input type="email" name="email" id="email"
+              <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+              <input type="text" name="last_name" id="last_name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Last name">
             </div>
@@ -34,11 +39,11 @@ export default defineComponent({
               <input type="text" name="password" id="password" placeholder="xxxxxx"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
-            <router-link to="/student">
-              <button
+<!--            <router-link to="/student">-->
+              <button type="submit" @click="this.$refs.student_form.submit()"
                 class="my-6 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-500">Sign
                 in</button>
-            </router-link>
+<!--            </router-link>-->
           </form>
         </div>
       </div>

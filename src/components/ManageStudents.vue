@@ -123,7 +123,11 @@ export default defineComponent({
                 <tr>
                   <th scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                    Name
+                    First Name
+                  </th>
+                  <th scope="col"
+                      class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                    Last Name
                   </th>
                   <!-- <th scope="col"
                         class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
@@ -136,6 +140,10 @@ export default defineComponent({
                   <th scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
                     Kinder Level
+                  </th>
+                  <th scope="col"
+                      class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
+                    Code
                   </th>
                   <th scope="col"
                     class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
@@ -155,10 +163,15 @@ export default defineComponent({
                       </div>
                       <div class="ml-3">
                         <p class="text-gray-900 whitespace-no-wrap">
-                          {{ student.first_name }} {{student.last_name}}
+                          {{ student.first_name }}
                         </p>
                       </div>
                     </div>
+                  </td>
+                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <p class="text-gray-900 whitespace-no-wrap">
+                      {{ student.last_name }}
+                    </p>
                   </td>
                   <!-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
@@ -178,6 +191,11 @@ export default defineComponent({
                         {{ this.getAge(student.birth_date) <= 3 ? 1 : 2 }}
                       </span>
                     </span>
+                  </td>
+                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <p class="text-gray-900 whitespace-no-wrap">
+                      {{ student.enrollment_code }}
+                    </p>
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div class="flex gap-5 items-center">

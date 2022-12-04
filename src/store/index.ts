@@ -198,6 +198,42 @@ export const assessmentStore = defineStore('assessment_store', () =>{
         return {assessments, addAssessment, getAssessments, saveAssessment, getActivities, deleteActivity, deleteAssessment, retrieveAssessment, submitAssessment, retrieveAssessmentResult}
     }
 )
+
+export const learningMaterialsStore = defineStore('learning_materials', ()=>{
+    const materials = reactive([])
+    const upload = async (event: Event, form:  HTMLFormElement) =>{
+        event.preventDefault()
+        const data = new FormData(form)
+        const new_data = new FormData(form)
+
+        data.forEach((value, key)=>{
+            // @ts-ignore
+            new_data.append('file_name', value.name)
+        })
+
+        return axios.post(import.meta.env.VITE_BACKEND_HOST+'/api/materials/add', new_data).then(async (response: any)=>{
+            // @ts-ignore
+            materials.push(response.data)
+            alert("file uploaded")
+        }).catch(error=>{
+            alert("Something went wrong")
+            console.log(error)
+        })
+
+
+    }
+
+    const retrieve = async () =>{
+        return axios.get(import.meta.env.VITE_BACKEND_HOST+'/api/materials/list').then(response=>{
+            // @ts-ignore
+            Array.prototype.splice.apply(materials, [0, response.data.length].concat(response.data))
+        }).catch(error=>{
+            return error
+        })
+    }
+    return {materials, upload, retrieve}
+})
+
 export const studentStore = defineStore('user_store', ()=>{
     const students = ref([])
 
@@ -249,6 +285,43 @@ export const studentStore = defineStore('user_store', ()=>{
     }
 
     return {enrollmentCode, generateCode, addStudent, getStudents, students, getAssessmentHistory}
+})
+
+export const studentDashboard = defineStore('student_dashboard', ()=>{
+
+    const student_info = reactive({})
+    const router = useRouter()
+    const get_student = (event: Event) => {
+        event.preventDefault()
+
+        // @ts-ignore
+        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/student/login?last_name=${event.target.last_name.value}&enrollment_code=${event.target.password.value}`).then(async response=>{
+            Object.assign(student_info, response.data)
+            console.log(student_info)
+            // @ts-ignore
+            await router.push({name: "StudentDashboard", query:{last_name: event.target.last_name.value, enrollment_code: event.target.password.value}})
+
+        }).catch(error=>{
+            if(error.response != null && error.response.status == 404){
+                alert("Invalid Code or Last name")
+            }
+            else{
+                alert("Something went wrong")
+            }
+            console.error(error)
+        })
+    }
+
+    const getAssessmentHistory = async  (id: number) =>{
+        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/history`).then(response=>{
+            return response.data
+        }).catch(error=>{
+            alert("Something went wrong")
+            console.error(error)
+        })
+    }
+
+    return {student_info, get_student, getAssessmentHistory}
 })
 
 export const systemParams = defineStore('sys_param', ()=>{

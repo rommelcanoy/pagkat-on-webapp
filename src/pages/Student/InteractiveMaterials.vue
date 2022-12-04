@@ -3,22 +3,26 @@ import { defineComponent } from "vue";
 import Sidebar from "../../components/Sidebar.vue";
 import { ref } from 'vue'
 import ManageAssessments from "../../components/ManageAssessments.vue";
+import StudentNav from "../../components/StudentNav.vue";
 
 export default defineComponent({
   name: "Interactive Materials",
   components: {
     Sidebar,
     ManageAssessments,
+    StudentNav,
   }
 })
 
 </script>
 
 <template>
-  <div class="min-h-screen flex bg-gray-100 text-gray-900 flex-1">
-    <Sidebar />
-    <div class="ml-64 flex-1 flex flex-col ">
-      <nav class="flex p-5 border-b w-full fixed bg-white" aria-label="Breadcrumb">
+  <!-- <div class="min-h-screen flex bg-gray-100 text-gray-900 flex-1"> -->
+  <div class="h-screen flex flex-col overflow-hidden">
+    <!-- <Sidebar /> -->
+    <student-nav />
+    <div class="flex-1 h-full py-8 px-12 flex flex-col items-center gap-12 overflow-y-auto bg-gray-100">
+      <!-- <nav class="flex p-5 border-b w-full fixed bg-white" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
           <li class="inline-flex items-center">
             <a href="#"
@@ -32,8 +36,8 @@ export default defineComponent({
             </a>
           </li>
         </ol>
-      </nav>
-      <div class="mt-[64px] bg-gray-100">
+      </nav> -->
+      <div class="">
         <div class="container mx-auto px-4 sm:px-8 w-full max-w-screen-xl">
 
           <!-- games -->
@@ -56,7 +60,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Animal Sound</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/games/animal-sound"
+                  <router-link to="/student/games/animal-sound"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -78,7 +82,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Maze Game</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/games/maze-game"
+                  <router-link to="/student/games/maze-game"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -100,7 +104,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">TicTacToe</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/games/tictactoe"
+                  <router-link to="/student/games/tictactoe"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -136,7 +140,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Alphabet</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/learning-materials/alphabet"
+                  <router-link to="/student/learning-materials/alphabet"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -158,7 +162,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Colors</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/learning-materials/colors"
+                  <router-link to="/student/learning-materials/colors"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -180,7 +184,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Numbers</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/learning-materials/numbers"
+                  <router-link to="/student/learning-materials/numbers"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -202,7 +206,7 @@ export default defineComponent({
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Shapes</h5>
                   </a>
                   <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
-                  <router-link to="/dashboard/learning-materials/shapes"
+                  <router-link to="/student/learning-materials/shapes"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"

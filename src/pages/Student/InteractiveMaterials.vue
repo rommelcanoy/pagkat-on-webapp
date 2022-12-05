@@ -59,7 +59,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Animal Sound</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/games/animal-sound"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
@@ -81,7 +81,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Maze Game</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/games/maze-game"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
@@ -103,7 +103,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">TicTacToe</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/games/tictactoe"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
@@ -139,7 +139,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Alphabet</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/learning-materials/alphabet"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
@@ -161,7 +161,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Colors</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/learning-materials/colors"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
@@ -183,7 +183,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Numbers</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/learning-materials/numbers"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View
@@ -205,7 +205,7 @@ export default defineComponent({
                   <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Shapes</h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore, libero nam.</p>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                   <router-link to="/student/learning-materials/shapes"
                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     View

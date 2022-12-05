@@ -2,6 +2,7 @@
 import { defineComponent, ref, reactive } from "vue";
 import Sidebar from "../../components/Sidebar.vue";
 import ViewAssessment from "../../components/ViewAssessment.vue";
+import {studentDashboard} from "../../store";
 
 export default defineComponent({
   name: "ViewStudentDetails",
@@ -9,8 +10,12 @@ export default defineComponent({
     ViewAssessment,
   },
   setup() {
-    return {
-    }
+    const student_store = studentDashboard()
+
+    return {student_store}
+  },
+  async mounted(){
+    await this.student_store.get_details(this.$route.query.last_name, this.$route.query.enrollment_code)
   }
 })
 
@@ -22,7 +27,7 @@ export default defineComponent({
       <nav class="flex p-5 border-b w-full fixed bg-white" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
           <li class="inline-flex items-center">
-            <router-link to="/dashboard/assessments"
+            <router-link to="/dashboard/students"
               class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
 
               <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +47,7 @@ export default defineComponent({
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                   clip-rule="evenodd"></path>
               </svg>
-              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Rommel Canoy</span>
+              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{this.$route.query.last_name}}</span>
             </div>
           </li>
         </ol>
@@ -71,28 +76,70 @@ export default defineComponent({
                   <dl>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                       <dt class="text-sm font-medium text-gray-500">Full name</dt>
-                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Margot Foster</dd>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.first_name}}  {{this.student_store.student_info.middle_name}} {{this.student_store.student_info.last_name}}</dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt class="text-sm font-medium text-gray-500">Application for</dt>
-                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Backend Developer</dd>
+                      <dt class="text-sm font-medium text-gray-500">Gender</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.gender}}</dd>
                     </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Birthdate</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.birth_date}}</dd>
+                    </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Birth Place</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.birth_place}}</dd>
+                    </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Address</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.address}}</dd>
+                    </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Development Center</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.development_center}}</dd>
+                    </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Teacher</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.teacher}}</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div class="px-4 py-5 sm:px-6">
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Parent Information</h3>
+                </div>
+                <div class="border-t border-gray-200">
+                  <dl>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt class="text-sm font-medium text-gray-500">Email address</dt>
-                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">margotfoster@example.com</dd>
+                      <dt class="text-sm font-medium text-gray-500">Father Name</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.father_name}}</dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt class="text-sm font-medium text-gray-500">Salary expectation</dt>
-                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">$120,000</dd>
+                      <dt class="text-sm font-medium text-gray-500">Father Occupation</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.father_occupation}}</dd>
                     </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Father Birthdate</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.father_birth_date}}</dd>
+                    </div>
+
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt class="text-sm font-medium text-gray-500">About</dt>
-                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt culpa
-                        aute sint
-                        do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint.
-                        Sit id
-                        mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing
-                        reprehenderit deserunt qui eu.</dd>
+                      <dt class="text-sm font-medium text-gray-500">Mother Name</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.mother_name}}</dd>
+                    </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Mother Occupation</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.mother_occupation}}</dd>
+                    </div>
+
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Mother Birthdate</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{this.student_store.student_info.mother_birth_date}}</dd>
                     </div>
                   </dl>
                 </div>

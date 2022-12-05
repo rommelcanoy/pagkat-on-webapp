@@ -117,6 +117,10 @@ const routes = [
 				component: Students,
 			},
 			{
+				path: '/learning-materials',
+				component: LearningMaterials,
+			},
+			{
 				path: 'add-student',
 				component: AddStudent,
 			},
@@ -154,6 +158,7 @@ const routes = [
 				path: 'learning-materials',
 				component: LearningMaterials,
 			},
+
 		],
 	},
 

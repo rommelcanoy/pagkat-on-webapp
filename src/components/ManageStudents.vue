@@ -201,10 +201,10 @@ export default defineComponent({
                       <!--                      <router-link to="/dashboard/edit-student?id=123" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">-->
                       <!--                        Edit-->
                       <!--                      </router-link>-->
-                      <router-link to="/dashboard/view-student-details"
+                      <router-link :to="'/dashboard/view-student-details?last_name='+student.last_name+'&enrollment_code='+student.enrollment_code"
                         class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">Student
                         Details</router-link>
-                      <start-assessment-modal :student_id="student.id" />
+<!--                      <start-assessment-modal :student_id="student.id" />-->
                       <view-assessment-history-modal :student_id="student.id" />
                     </div>
                   </td>

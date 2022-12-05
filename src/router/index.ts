@@ -22,6 +22,7 @@ import Colors from '../pages/Student/Materials/Colors.vue'
 import Numbers from '../pages/Student/Materials/Numbers.vue'
 import Shapes from '../pages/Student/Materials/Shapes.vue'
 import StudentViewAssessment from '../pages/Student/ViewAssessment.vue'
+import ViewLearningMaterials from '../pages/Student/ViewLearningMaterials.vue'
 import InteractiveMaterials from '../pages/Student/InteractiveMaterials.vue'
 import LandingPage from '../pages/LandingPage.vue'
 import ViewStudentDetails from '../pages/Dashboard/ViewStudentDetails.vue'
@@ -62,6 +63,11 @@ const routes = [
 		path: '/student/view-assessment',
 		name: 'StudentViewAssessment',
 		component: StudentViewAssessment,
+	},
+	{
+		path: '/student/learning-materials',
+		name: 'ViewLearningMaterials',
+		component: ViewLearningMaterials,
 	},
 	{
 		path: '/student/interactive-materials',

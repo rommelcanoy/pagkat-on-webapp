@@ -39,7 +39,7 @@ export default defineComponent({
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div class="grid-cols-1 lg:col-span-3">
             <div class="mx-auto flex h-[90px] w-[90px] items-center justify-center rounded-full bg-blue-100 p-4">
-              <img src="https://www.w3schools.com/howto/img_avatar.png" id="logo-39" width="50" height="40" />
+              <img :src="this.student_store.student_info.student_image == null ? 'https://www.w3schools.com/howto/img_avatar.png' : this.student_store.student_info.student_image" id="logo-39" width="50" height="40" />
             </div>
           </div>
 

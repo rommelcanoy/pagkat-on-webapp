@@ -321,7 +321,21 @@ export const studentDashboard = defineStore('student_dashboard', ()=>{
         })
     }
 
-    return {student_info, get_student, getAssessmentHistory}
+    const get_details = async (last_name: any, code: any) =>{
+        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/student/login?last_name=${last_name}&enrollment_code=${code}`).then(async response=>{
+            Object.assign(student_info, response.data)
+        }).catch(error=>{
+            if(error.response != null && error.response.status == 404){
+                alert("Invalid Code or Last name")
+            }
+            else{
+                alert("Something went wrong")
+            }
+            console.error(error)
+        })
+    }
+
+    return {student_info, get_student, getAssessmentHistory, get_details}
 })
 
 export const systemParams = defineStore('sys_param', ()=>{

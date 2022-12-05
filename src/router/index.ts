@@ -24,6 +24,7 @@ import Shapes from '../pages/Student/Materials/Shapes.vue'
 import StudentViewAssessment from '../pages/Student/ViewAssessment.vue'
 import InteractiveMaterials from '../pages/Student/InteractiveMaterials.vue'
 import LandingPage from '../pages/LandingPage.vue'
+import ViewStudentDetails from '../pages/Dashboard/ViewStudentDetails.vue'
 // import Register from '@/pages/Register/Register.vue'
 
 const routes = [
@@ -142,6 +143,10 @@ const routes = [
 			{
 				path: 'view-assessment',
 				component: ViewAssessmentPage,
+			},
+			{
+				path: 'view-student-details',
+				component: ViewStudentDetails,
 			},
 		],
 	},

@@ -69,10 +69,6 @@ const routes = [
 		component: InteractiveMaterials,
 	},
 	{
-		path: '/student/learning-materials',
-		component: LearningMaterials,
-	},
-	{
 		path: '/student/games/animal-sound',
 		component: AnimalSound,
 	},
@@ -147,6 +143,10 @@ const routes = [
 			{
 				path: 'view-student-details',
 				component: ViewStudentDetails,
+			},
+			{
+				path: 'learning-materials',
+				component: LearningMaterials,
 			},
 		],
 	},

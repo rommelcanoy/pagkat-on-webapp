@@ -79,9 +79,9 @@ export default defineComponent({
               <form
                 class="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
                 <div class=" relative ">
-                  <input type="text" id=""
-                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="Search" />
+<!--                  <input type="text" id=""-->
+<!--                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"-->
+<!--                    placeholder="Search" />-->
                 </div>
               </form>
             </div>
@@ -93,7 +93,7 @@ export default defineComponent({
                 <tr>
                   <th scope="col"
                       class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
-                    Name
+                    Assessment
                   </th>
                   <th scope="col"
                       class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
@@ -111,7 +111,7 @@ export default defineComponent({
                     <div class="flex items-center">
                       <div class="ml-3">
                         <p class="text-gray-900 whitespace-no-wrap">
-                          {{ assessment.assessment }}
+                          Assessment
                         </p>
                       </div>
                     </div>
@@ -121,13 +121,13 @@ export default defineComponent({
                         <span aria-hidden="true" class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
                         </span>
                         <span class="relative">
-                          Assessment
+                          {{ assessment.difficulty }}
                         </span>
                       </span>
                   </td>
                   <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div class="flex gap-5 items-center">
-                      <router-link :to="'/student/view-assessment?assessment_id='+assessment.assessment_id+'&result_id='+assessment.id+'&assessment_name='+assessment.assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
+                      <router-link :to="'/student/view-assessment?assessment_id='+assessment.id+'&student_id='+this.student_store.student_info.id" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500">
                         View Assessment
                       </router-link>
                       <!-- <router-link to="/dashboard/start-assessment" class="hover:bg-blue-500 hover:text-white border-blue-500 px-3 py-1 border  rounded text-blue-500" @click="startAssess = true">Start Assessment</router-link> -->

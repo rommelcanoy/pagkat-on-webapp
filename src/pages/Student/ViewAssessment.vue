@@ -22,7 +22,7 @@ export default defineComponent({
         <div class="py-8 flex flex-col gap-4">
           <div class="flex items-center sm:mb-0 justify-between w-full">
             <h2 class="text-2xl leading-tight">
-              Assessment Test 1
+              Assessment
             </h2>
 
             <div class="text-end">

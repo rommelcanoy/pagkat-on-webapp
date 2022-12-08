@@ -4,6 +4,7 @@ import axios from "axios";
 import {useRouter} from "vue-router";
 // @ts-ignore
 import Cookies from 'js-cookie'
+import numbers from "../pages/Student/Materials/Numbers.vue";
 
 export const userStore = defineStore('auth', () => {
     const signed_up = ref(0)
@@ -276,7 +277,7 @@ export const studentStore = defineStore('user_store', ()=>{
     }
 
     const getAssessmentHistory = async  (id: number) =>{
-        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/history`).then(response=>{
+        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/results`).then(response=>{
             return response.data
         }).catch(error=>{
             alert("Something went wrong")
@@ -289,7 +290,9 @@ export const studentStore = defineStore('user_store', ()=>{
 
 export const studentDashboard = defineStore('student_dashboard', ()=>{
 
-    const student_info = reactive({})
+    const student_info = reactive({
+        id: null
+    })
     const router = useRouter()
     const get_student = (event: Event) => {
         event.preventDefault()
@@ -313,29 +316,53 @@ export const studentDashboard = defineStore('student_dashboard', ()=>{
     }
 
     const getAssessmentHistory = async  (id: number) =>{
-        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/history`).then(response=>{
-            return response.data
-        }).catch(error=>{
-            alert("Something went wrong")
-            console.error(error)
-        })
+        if(student_info.id == null){
+            await router.push({name: 'LandingPage'})
+        } else{
+            return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/results`).then(response=>{
+                return response.data
+            }).catch(error=>{
+                alert("Something went wrong")
+                console.error(error)
+            })
+        }
+
+    }
+
+    const getAssessmentHistoryResults = async  (id: number) =>{
+        if(student_info.id == null && id == null){
+            await router.push({name: 'LandingPage'})
+        } else{
+            return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/assessment/${id}/results/list`).then(response=>{
+                return response.data
+            }).catch(error=>{
+                alert("Something went wrong")
+                console.error(error)
+            })
+        }
+
     }
 
     const get_details = async (last_name: any, code: any) =>{
-        return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/student/login?last_name=${last_name}&enrollment_code=${code}`).then(async response=>{
-            Object.assign(student_info, response.data)
-        }).catch(error=>{
-            if(error.response != null && error.response.status == 404){
-                alert("Invalid Code or Last name")
-            }
-            else{
-                alert("Something went wrong")
-            }
-            console.error(error)
-        })
+        if(student_info.id == null && last_name == null && code == null){
+            await router.push({name: 'LandingPage'})
+        } else{
+            return axios.get(import.meta.env.VITE_BACKEND_HOST+`/api/student/login?last_name=${last_name}&enrollment_code=${code}`).then(async response=>{
+                Object.assign(student_info, response.data)
+            }).catch(error=>{
+                if(error.response != null && error.response.status == 404){
+                    alert("Invalid Code or Last name")
+                }
+                else{
+                    alert("Something went wrong")
+                }
+                console.error(error)
+            })
+        }
+
     }
 
-    return {student_info, get_student, getAssessmentHistory, get_details}
+    return {student_info, get_student, getAssessmentHistory, get_details, getAssessmentHistoryResults}
 })
 
 export const systemParams = defineStore('sys_param', ()=>{

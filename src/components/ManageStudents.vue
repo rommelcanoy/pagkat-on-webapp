@@ -101,10 +101,10 @@ export default defineComponent({
               class="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center"
               action="javascript:void(0)">
               <div class=" relative ">
-                <input type="text" id="enrollment_code" class=" rounded-lg border-transparent
-                  flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400
-                  shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="Search Name" />
+<!--                <input type="text" id="enrollment_code" class=" rounded-lg border-transparent-->
+<!--                  flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400-->
+<!--                  shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"-->
+<!--                  placeholder="Search Name" />-->
               </div>
               <!--              <router-link to="/dashboard/add-student">-->
               <button @click.prevent="toggle" @click="student_controller.enrollmentCode = ''"

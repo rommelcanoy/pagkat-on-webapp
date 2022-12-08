@@ -21,18 +21,20 @@ import Alphabet from '../pages/Student/Materials/Alphabet.vue'
 import Colors from '../pages/Student/Materials/Colors.vue'
 import Numbers from '../pages/Student/Materials/Numbers.vue'
 import Shapes from '../pages/Student/Materials/Shapes.vue'
+import FirstAssessment from '../pages/Student/Assessments/Asessment1.vue'
 import StudentViewAssessment from '../pages/Student/ViewAssessment.vue'
 import ViewLearningMaterials from '../pages/Student/ViewLearningMaterials.vue'
 import InteractiveMaterials from '../pages/Student/InteractiveMaterials.vue'
 import LandingPage from '../pages/LandingPage.vue'
 import ViewStudentDetails from '../pages/Dashboard/ViewStudentDetails.vue'
+import {studentDashboard} from "../store";
 // import Register from '@/pages/Register/Register.vue'
 
 const routes = [
 	{
 		path: '/',
 		name: 'LandingPage',
-		component: LandingPage,
+		component: StudentLogin,
 	},
 	{
 		path: '/login',
@@ -101,6 +103,10 @@ const routes = [
 	{
 		path: '/student/learning-materials/shapes',
 		component: Shapes,
+	},
+	{
+		path: '/student/assessment/1',
+		component: FirstAssessment,
 	},
 	{
 		path: '/dashboard',

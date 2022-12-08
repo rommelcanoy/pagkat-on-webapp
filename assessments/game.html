@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Assessment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'><link rel="stylesheet" href="./style.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body style="background-color: black;">
+<!-- partial:index.partial.html -->
+<section x-data="game">
+ <section x-show="game_start === false" x-transition:enter.duration.500ms
+          x-transition:leave.duration.400ms>
+   <div style="color: white; font-size: 5em; text-align: center; align-items: center; align-content: center; margin-top: 3em;">
+     <h1><b>SELECT DIFFICULTY</b></h1>
+   </div>
+   <div style="align-content: center; align-items: center; text-align: center; margin-top: 3.5em;">
+     <button class="game-button green" @click="select_level('green', 'EASY')">Easy</button>
+     <button class="game-button orange" @click="select_level('orange', 'MODERATE')">Moderate</button>
+     <button class="game-button red" @click="select_level('red', 'HARD')">Hard</button>
+
+   </div>
+
+
+
+   <div  style="align-content: center; align-items: center; text-align: center; margin-top: 3.5em;">
+     <button @click="start()" :class="color == null ? 'game-button':'game-button '+ color" x-text="level == null ? 'START ASSESSMENT' : 'START ' + level + ' ASSESSMENT'"></button>
+   </div>
+
+   <div style="align-content: center; align-items: center; text-align: center; margin-top: 3.5em;">
+     <b><h1 style="color: white; margin-bottom: 1%; font-size: 2em; " x-text="'CORRECT ANSWER'"></h1></b>
+     <h1 style="color: white; margin-bottom: 2%; font-size: 2em;" x-text="correct_answers"></h1>
+     <b><h1 style="color: white; margin-bottom: 1%; font-size: 2em;" x-text="'WRONG ANSWER'"></h1></b>
+     <h1 style="color: white; margin-bottom: 2%; font-size: 2em;" x-text="wrong_answers"></h1>
+   </div>
+ </section>
+
+  <div class="container" x-show="game_start === true" x-transition:enter.duration.500ms
+       x-transition:leave.duration.400ms>
+
+    <template x-for="item in for_choices">
+      <div>
+        <template x-if="item.name != null">
+          <div class="card" :style="item.color == null ? '--color: '+ get_color() : item.color" @click="check_correct(item.id, item.description)">
+            <div class="content">
+              <div class="icon" style="z-index: -1">
+                <h3 style="font-size: 6em;"  x-text="item.name"></h3>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template x-if="item.color != null">
+          <div class="card" :style="`--color: 2e2e2e !important; background: ${item.color == null ?  get_color() :  item.color} !important;`" @click="check_correct(item.id, item.description)">
+            <div class="content" :style="`--color: 2e2e2e !important; background: ${item.color == null ?  get_color() :  item.color} !important; `" >
+              <div class="icon" :style="`--color: 2e2e2e !important; background: ${item.color == null ?  get_color() :  item.color} !important; `" >
+                <h3 style="font-size: 6em;"  ></h3>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template x-if="item.image != null" >
+          <div class="card"  style="background: white !important;" @click="check_correct(item.id, item.description)">
+            <div class="content"  style="background: white !important;">
+              <div class="icon" style="background: white !important;">
+                <img :src="item.image">
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+  </div>
+
+</section>
+
+
+<!-- partial -->
+</body>
+
+<script>
+
+
+    document.addEventListener('alpine:init', () => {
+
+    Alpine.data('game', () => ({
+      color: null,
+      level: null,
+      choices_count: 0,
+      game_start: false,
+      for_choices: [],
+      correct_answer: null,
+      attempts: [],
+      max_attempts: 0,
+      current_attempts: 0,
+      correct_answers: 0,
+      wrong_answers: 0,
+      select_level: function (color, level){
+        this.color = color
+        this.level = level
+      },
+      get_color: function (){
+        return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+      },
+      start: function (){
+        if(this.level == null && this.color == null){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'PLEASE SELECT DIFFICULTY TO CONTINUE!',
+          })
+        } else{
+          if(this.level === 'EASY'){
+            this.choices_count = 4
+            this.max_attempts = 10
+          } else if (this.level === 'MODERATE'){
+            this.choices_count = 6
+            this.max_attempts = 15
+          } else{
+            this.choices_count = 8
+            this.max_attempts = 20
+          }
+          this.game_start = true
+
+          this.current_attempts = 0
+          this.correct_answers = 0
+          this.wrong_answers = 0
+          this.random()
+        }
+      },
+      check_correct: function (id, description){
+
+        if(this.correct_answer === id){
+          const correct = new Audio('./game_voice/correct.mp3')
+
+          correct.play().then(() => setTimeout(()=>{
+            this.attempts.push({name: description, remarks: 'Correct'})
+            this.correct_answers++
+
+            this.random()
+          }, 1000))
+        } else{
+          this.attempts.push({name: description, remarks: 'Wrong'})
+          const wrong = new Audio('./game_voice/wrong.mp3')
+          this.wrong_answers++
+          wrong.play().then(() => setTimeout(()=>{
+            this.random()
+          }, 1000))
+        }
+      },
+      random: function (){
+        if(this.game_start === true){
+          if(this.current_attempts >= this.max_attempts){
+            const complete = new Audio('./game_voice/complete.mp3')
+            complete.play().then(()=>{
+                axios.post(Alpine.store('url')+'/api/assessment/results/save', {
+                    assessment_result: this.attempts,
+                    student: Alpine.store('student_info'),
+                    difficulty: this.level
+                }).then(function (response) {
+                        console.log(response);
+                }).catch(function (error) {
+                        console.log(error);
+                });
+              this.game_start = false
+              this.max_attempts = 0
+              this.level = null
+              this.color = null
+            })
+          } else{
+            this.current_attempts++
+            this.for_choices.splice(0, this.for_choices.length)
+            this.load(this.choices_count)
+          }
+
+        }
+      },
+      load: function (numbers){
+        [...Array(numbers)].forEach((_, i) => {
+          const index = Math.floor(Math.random() * (this.choices.length - 1))
+          this.for_choices.push(this.choices[index])
+        });
+
+        const index = Math.floor(Math.random() * (this.for_choices.length - 1))
+        const answer = this.for_choices[index]
+        this.correct_answer = answer.id
+        answer.voice.play()
+      },
+      choices: [
+        {id: 1, 'name': 'A', 'voice': new Audio('./game_voice/Select Letter A .m4a'), 'color': null, 'image': null, 'description': 'Letter A'},
+        {id: 2, 'name': 'B', 'voice': new Audio('./game_voice/Select Letter B.m4a'), 'color': null, 'image': null, 'description': 'Letter B'},
+        {id: 3, 'name': 'C', 'voice': new Audio('./game_voice/Select Letter C .m4a'), 'color': null, 'image': null, 'description': 'Letter C'},
+        {id: 4, 'name': 'D', 'voice': new Audio('./game_voice/Select Letter D.m4a'), 'color': null, 'image': null, 'description': 'Letter D'},
+        {id: 5, 'name': 'E', 'voice': new Audio('./game_voice/Select Letter E.m4a'), 'color': null, 'image': null, 'description': 'Letter E'},
+        {id: 6, 'name': 'F', 'voice': new Audio('./game_voice/Select Letter F.m4a'), 'color': null, 'image': null, 'description': 'Letter F'},
+        {id: 7, 'name': 'G', 'voice': new Audio('./game_voice/Select Letter G.m4a'), 'color': null, 'image': null, 'description': 'Letter G'},
+        {id: 8, 'name': 'H', 'voice': new Audio('./game_voice/Select Letter H.m4a'), 'color': null, 'image': null, 'description': 'Letter H'},
+        {id: 9, 'name': 'I', 'voice': new Audio('./game_voice/Select Letter i.m4a'), 'color': null, 'image': null, 'description': 'Letter I'},
+        {id: 10, 'name': 'J', 'voice': new Audio('./game_voice/Select letter J.m4a'), 'color': null, 'image': null, 'description': 'Letter J'},
+        {id: 11, 'name': 'K', 'voice': new Audio('./game_voice/Select Letter K.m4a'), 'color': null, 'image': null, 'description': 'Letter K'},
+        {id: 12, 'name': 'L', 'voice': new Audio('./game_voice/Select Letter L.m4a'), 'color': null, 'image': null, 'description': 'Letter L'},
+        {id: 13, 'name': 'M', 'voice': new Audio('./game_voice/Select Letter M.m4a'), 'color': null, 'image': null, 'description': 'Letter M'},
+        {id: 14, 'name': 'N', 'voice': new Audio('./game_voice/Select Letter N.m4a'), 'color': null, 'image': null, 'description': 'Letter N'},
+        {id: 15, 'name': 'O', 'voice': new Audio('./game_voice/Select Letter O.m4a'), 'color': null, 'image': null, 'description': 'Letter O'},
+        {id: 16, 'name': 'P', 'voice': new Audio('./game_voice/Select Letter P.m4a'), 'color': null, 'image': null, 'description': 'Letter P'},
+        {id: 17, 'name': 'Q', 'voice': new Audio('./game_voice/Select Letter Q.m4a'), 'color': null, 'image': null, 'description': 'Letter Q'},
+        {id: 18, 'name': 'R', 'voice': new Audio('./game_voice/Select Letter R.m4a'), 'color': null, 'image': null, 'description': 'Letter R'},
+        {id: 19, 'name': 'S', 'voice': new Audio('./game_voice/Select Letter S.m4a'), 'color': null, 'image': null, 'description': 'Letter S'},
+        {id: 20, 'name': 'T', 'voice': new Audio('./game_voice/Select Letter T.m4a'), 'color': null, 'image': null, 'description': 'Letter T'},
+        {id: 21, 'name': 'U', 'voice': new Audio('./game_voice/Select Letter U.m4a'), 'color': null, 'image': null, 'description': 'Letter U'},
+        {id: 22, 'name': 'V', 'voice': new Audio('./game_voice/Select Letter V.m4a'), 'color': null, 'image': null, 'description': 'Letter V'},
+        {id: 23, 'name': 'W', 'voice': new Audio('./game_voice/Select Letter W.m4a'), 'color': null, 'image': null, 'description': 'Letter W'},
+        {id: 24, 'name': 'X', 'voice': new Audio('./game_voice/Select Letter X.m4a'), 'color': null, 'image': null, 'description': 'Letter X'},
+        {id: 25, 'name': 'Y', 'voice': new Audio('./game_voice/Select letter Y.m4a'), 'color': null, 'image': null, 'description': 'Letter Y'},
+        {id: 26, 'name': 'Z', 'voice': new Audio('./game_voice/Select Letter Z.m4a'), 'color': null, 'image': null, 'description': 'Letter Z'},
+        {id: 27, 'name': '1', 'voice': new Audio('./game_voice/Select Number 1.m4a'), 'color': null, 'image': null, 'description': 'Number 1'},
+        {id: 28, 'name': '2', 'voice': new Audio('./game_voice/Select Number 2 .m4a'), 'color': null, 'image': null, 'description': 'Number 2'},
+        {id: 29, 'name': '3', 'voice': new Audio('./game_voice/Select Number 3.m4a'), 'color': null, 'image': null, 'description': 'Number 3'},
+        {id: 30, 'name': '4', 'voice': new Audio('./game_voice/Select Number 4.m4a'), 'color': null, 'image': null, 'description': 'Number 4'},
+        {id: 31, 'name': '5', 'voice': new Audio('./game_voice/Select Number 5.m4a'), 'color': null, 'image': null, 'description': 'Number 5'},
+        {id: 32, 'name': '6', 'voice': new Audio('./game_voice/Select Number 6.m4a'), 'color': null, 'image': null, 'description': 'Number 6'},
+        {id: 33, 'name': '7', 'voice': new Audio('./game_voice/Select Number 7.m4a'), 'color': null, 'image': null, 'description': 'Number 7'},
+        {id: 34, 'name': '8', 'voice': new Audio('./game_voice/Select number 8.m4a'), 'color': null, 'image': null, 'description': 'Number 8'},
+        {id: 35, 'name': '9', 'voice': new Audio('./game_voice/Select Number 9.m4a'), 'color': null, 'image': null, 'description': 'Number 9'},
+        {id: 36, 'name': '10', 'voice': new Audio('./game_voice/Select Number 10.m4a'), 'color': null, 'image': null, 'description': 'Number 10'},
+        {id: 37, 'name': null, 'voice': new Audio('./game_voice/Select Shape Circle.m4a'), 'color': null, 'image': './shapes/circle.png', 'description': 'Shape Circle'},
+        {id: 38, 'name': null, 'voice': new Audio('./game_voice/Select Shape Oval.m4a'), 'color': null, 'image': './shapes/oval.png', 'description': 'Shape Oval'},
+        {id: 39, 'name': null, 'voice': new Audio('./game_voice/Select Shape Rectangle.m4a'), 'color': null, 'image': './shapes/rectangle.png', 'description': 'Shape Rectangle'},
+        {id: 40, 'name': null, 'voice': new Audio('./game_voice/Select Shape Square.m4a'), 'color': null, 'image': './shapes/square.png', 'description': 'Shape Square'},
+        {id: 41, 'name': null, 'voice': new Audio('./game_voice/Select Shape Star.m4a'), 'color': null, 'image': './shapes/star.png', 'description': 'Shape Star'},
+        {id: 42, 'name': null, 'voice': new Audio('./game_voice/Select Shape triangle.m4a'), 'color': null, 'image': './shapes/triangle.png', 'description': 'Shape Triangle'},
+        {id: 43, 'name': null, 'voice': new Audio('./game_voice/Select Color White.m4a'), 'color': '#F0F8FF', 'image': null, 'description': 'Color White'},
+        {id: 44, 'name': null, 'voice': new Audio('./game_voice/Select Color Black.m4a'), 'color': '#000000', 'image': null, 'description': 'Color Black'},
+        {id: 45, 'name': null, 'voice': new Audio('./game_voice/Select Color Blue.m4a'), 'color': '#0043e0', 'image': null, 'description': 'Color Blue'},
+        {id: 46, 'name': null, 'voice': new Audio('./game_voice/Select Color Red.m4a'), 'color': '#b00106', 'image': null, 'description': 'Color Red'},
+        {id: 47, 'name': null, 'voice': new Audio('./game_voice/Select Color Gray.m4a'), 'color': '#757575', 'image': null, 'description': 'Color Gray'},
+        {id: 48, 'name': null, 'voice': new Audio('./game_voice/Select Color Yellow.m4a'), 'color': '#fad972', 'image': null, 'description': 'Color Yellow'},
+      ],
+    }))
+
+        window.addEventListener("message", (event) => {
+            Alpine.store('student_info', event.data.student)
+            Alpine.store('url', event.data.host)
+        }, true);
+  })
+</script>
+</html>
